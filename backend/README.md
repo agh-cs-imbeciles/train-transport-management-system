@@ -1,19 +1,19 @@
 # Train transport management system
-`React` + `Typescript` frontend application  
-Development server: `Vue`
+`Express` backend application
 
 ## Instructions how to run
 1. Clone the repository
     ```
     git@github.com:agh-cs-imbeciles/train-transport-management-system.git
     ```
-2. Go the _app_ directory
+2. Go the _backend_ directory
     ```
-    cd app
+    cd backend
     ```
 3. Install node packages
     ```
     npm install
+    npm install --save-dev
     ```
 4. Run development server
     ```
