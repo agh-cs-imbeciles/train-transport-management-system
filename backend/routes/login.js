@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const chalk = require('chalk');
+import express from 'express';
+import chalk from 'chalk';
+const router = express();
 
 router.use((req, res, next) => {
     console.log(chalk.cyan.bold('[Login]') + ` ${req.originalUrl}`);
@@ -11,4 +11,4 @@ router.post('/', (req, res) => {
     res.send('Success');
 });
 
-module.exports = router;
+export default router;

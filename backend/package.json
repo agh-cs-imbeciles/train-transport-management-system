@@ -4,6 +4,7 @@
   "private": true,
   "description": "Backend of the TTMS",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node .",
     "dev": "nodemon . & npm run scss",

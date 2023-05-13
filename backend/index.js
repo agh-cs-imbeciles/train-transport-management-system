@@ -1,14 +1,14 @@
-const express = require('express');
+import express from 'express';
+import dotenv from 'dotenv';
+import dotenvExpand from 'dotenv-expand';
+import loginRouter from './routes/login.js';
 const app = express();
-const dotenv = require('dotenv');
-const dotenvExpand = require('dotenv-expand');
-const loginRouter = require('./routes/login');
 
 // Initializing dotenv
 const env = dotenv.config();
 dotenvExpand.expand(env);
 
-const port = process.env.PORT;
+const port = process.env.SERVER_PORT;
 
 app.use('/login', loginRouter);
 
