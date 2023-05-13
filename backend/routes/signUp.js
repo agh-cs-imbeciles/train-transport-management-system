@@ -1,5 +1,7 @@
 import express from 'express';
 import chalk from 'chalk';
+import asyncHandler from 'express-async-handler';
+import User from '../models/user.js';
 const router = express();
 
 router.use((req, res, next) => {
@@ -7,8 +9,8 @@ router.use((req, res, next) => {
     next();
 });
 
-router.put('/', (req, res) => {
+router.put('/', asyncHandler(async (req, res) => {
     res.send('Success');
-});
+}));
 
 export default router;

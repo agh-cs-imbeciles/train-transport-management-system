@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
 import signUpRouter from './routes/signUp.js';
 import loginRouter from './routes/login.js';
+import { connect } from './config/database.js';
 const app = express();
 
 // Initializing dotenv
@@ -10,6 +11,8 @@ const env = dotenv.config();
 dotenvExpand.expand(env);
 
 const port = process.env.SERVER_PORT;
+
+connect();
 
 app.use('/signup', signUpRouter);
 app.use('/login', loginRouter);
