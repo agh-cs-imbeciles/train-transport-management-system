@@ -1,5 +1,15 @@
 # Train transport management system
+<<<<<<< HEAD
 `Express` backend application
+=======
+`Express` backend application  
+
+#### Build on machine with
+
+`Node.js`: 18.15.0  
+`npm`: 9.6.6  
+
+>>>>>>> local
 
 ## Instructions how to run
 1. Clone the repository
