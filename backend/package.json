@@ -1,0 +1,44 @@
+{
+  "name": "traintms-backend",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Backend of the TTMS",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon . & npm run scss",
+    "scss": "sass --watch views:public/css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agh-cs-imbeciles/train-transport-management-system.git"
+  },
+  "contributors": [
+    {
+      "name": "Jakub Szaredko",
+      "url": "https://github.com/Szaroslav"
+    },
+    {
+      "name": "Piotr Kuchta",
+      "url": "https://github.com/kpiotr6"
+    },
+    {
+      "name": "Mateusz Knap",
+      "url": "https://github.com/MatoKnap"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agh-cs-imbeciles/train-transport-management-system/issues"
+  },
+  "homepage": "https://github.com/agh-cs-imbeciles/train-transport-management-system#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "pug": "^3.0.2",
+    "sass": "^1.62.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
