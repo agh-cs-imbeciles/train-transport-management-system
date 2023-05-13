@@ -15,7 +15,12 @@ export type LoginData = {
     password: string;
 };
 export type Adress = {
-    street: string;
+    street: Street;
     city: string;
     zipCode: string;
+}
+export type Street = {
+    name: string,
+    houseNumber: number,
+    apartamentNumber: number
 }
