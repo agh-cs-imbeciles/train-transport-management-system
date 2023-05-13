@@ -1,6 +1,12 @@
 # Train transport management system
 `React` + `Typescript` frontend application  
-Development server: `Vue`
+Development server: `Vue`  
+
+#### Build on machine with
+
+`Node.js`: 18.15.0  
+`npm`: 9.6.6  
+
 
 ## Instructions how to run
 1. Clone the repository
