@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
+import signUpRouter from './routes/signUp.js';
 import loginRouter from './routes/login.js';
 const app = express();
 
@@ -10,6 +11,7 @@ dotenvExpand.expand(env);
 
 const port = process.env.SERVER_PORT;
 
+app.use('/signup', signUpRouter);
 app.use('/login', loginRouter);
 
 app.get('/', (req, res) => {
