@@ -8,15 +8,15 @@
 
 
 ## Table of contents
-1. [Instructions how to run](#how-to-run)
+1. [Instructions how to run](#instructions-how-to-run)
 2. [Database](#database)
     1. [Collections](#collections)
         1. [Users](#users)
         2. [Reservations](#reservations)
-3. [Backend application](#backend-app)
+3. [Backend application](#backend-application)
 
 
-## Instructions how to run {#how-to-run}
+## Instructions how to run
 1. Clone the repository
     ```
     git@github.com:agh-cs-imbeciles/train-transport-management-system.git
@@ -36,13 +36,13 @@
     ```
 
 
-## Database {#database}
+## Database
 The database is document-oriented, runned on `MongoDB`, more precisely [MongoDB Atlas](https://www.mongodb.com/atlas/database).
 
-### Collections {#collections}
+### Collections
 Contains X collections.
 
-#### Users {#users}
+#### Users
 Defines users of the application, clients and staff but without checking their roles.
 
 `UserSchema`
@@ -102,7 +102,7 @@ const userSchema = mongoose.Schema({
 });
 ```
 
-#### Reservations {#reservations}
+#### Reservations
 Defines all currently active reservations, grouped by `userId`.
 
 `ReservationSchema`
@@ -131,4 +131,4 @@ Defines all currently active reservations, grouped by `userId`.
 );
 ```
 
-## Backend application {#backend-app}
+## Backend application
