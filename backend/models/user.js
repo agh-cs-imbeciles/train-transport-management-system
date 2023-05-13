@@ -52,4 +52,6 @@ const userSchema = mongoose.Schema({
             trim: true
         }
     }
-}); 
+});
+
+module.exports = mongoose.model('User', userSchema);
