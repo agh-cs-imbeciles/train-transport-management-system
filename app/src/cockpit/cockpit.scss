@@ -1,0 +1,22 @@
+.whole{
+    display: flex;
+    flex-direction: row;
+}
+.cockpit-panel{
+    Button{
+        height: fit-content;
+        width:  fit-content;
+        p{
+            margin: 0;
+        }
+        margin:5px;
+    }
+    width: fit-content;
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+}
+.selected{
+    flex-grow: 10;
+    background-color: brown;
+}

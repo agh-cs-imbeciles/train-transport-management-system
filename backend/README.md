@@ -1,20 +1,15 @@
 # Train transport management system
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 `Express` backend application
-=======
-=======
->>>>>>> 179ff70a4007d54e5911a2ecf17af48693b3d3f3
+
 `Express` backend application  
 
 #### Build on machine with
 
 `Node.js`: 18.15.0  
-<<<<<<< HEAD
-`npm`: 9.6.6  
 
->>>>>>> local
-=======
+
+
 `npm`: 9.6.6
 
 
@@ -26,7 +21,7 @@
         2. [Reservations](#reservations)
 3. [Backend application](#backend-application)
 
->>>>>>> 179ff70a4007d54e5911a2ecf17af48693b3d3f3
+
 
 ## Instructions how to run
 1. Clone the repository

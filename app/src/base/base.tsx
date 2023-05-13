@@ -8,6 +8,7 @@ export default function Base(){
             <Container>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Nav className="me-auto">
+                    <Nav.Link href="cockpit">Kokpit</Nav.Link>
                     <Nav.Link href="login">Zaloguj</Nav.Link>
                     <Nav.Link href="register">Zarejestruj</Nav.Link>
                 </Nav>
