@@ -68,7 +68,7 @@ const signUp = async (req, res) => {
 
     console.log(newUser);
 
-    res.send('Success');
+    res.json({ userId: newUser._id.toString() });
 };
 
 export { signUp };

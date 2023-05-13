@@ -78,11 +78,27 @@ const userSchema = mongoose.Schema({
     },
     address: {
         street: {
-            type: String,
-            required: [true, 'Street is required'],
-            minLength: [2, 'Street is too short'],
-            maxLength: [64, 'Street is too long'],
-            trim: true
+            name: {
+                type: String,
+                required: [true, 'Street name is required'],
+                minLength: [2, 'Street name is too short'],
+                maxLength: [64, 'Street name is too long'],
+                trim: true
+            },
+            houseNumber: {
+                type: String,
+                required: [true, 'House number is required'],
+                minLength: [1, 'House number is too short'],
+                maxLength: [10, 'House number is too long'],
+                trim: true
+            },
+            apartmentNumber: {
+                type: String,
+                required: [true, 'Apartment number is required'],
+                minLength: [1, 'Apartment number is too short'],
+                maxLength: [10, 'Apartment number is too long'],
+                trim: true
+            }  
         },
         city: {
             type: String,
