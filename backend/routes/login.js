@@ -1,6 +1,6 @@
 import express from 'express';
 import chalk from 'chalk';
-const router = express();
+const router = express.Router();
 
 router.use((req, res, next) => {
     console.log(chalk.cyan.bold('[Login]') + ` ${req.originalUrl}`);
