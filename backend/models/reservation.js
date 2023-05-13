@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const reservationSchema = mongoose.Schema(
+const ReservationSchema = mongoose.Schema(
     {
         userId: {
             type: ObjectId,
@@ -24,4 +24,4 @@ const reservationSchema = mongoose.Schema(
     }
 );
 
-// module.exports = mongoose.model('Reservation', reservationSchema);
+export default mongoose.Model('Reservation', ReservationSchema);
