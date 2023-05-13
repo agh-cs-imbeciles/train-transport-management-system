@@ -12,8 +12,14 @@ dotenvExpand.expand(env);
 
 const port = process.env.SERVER_PORT;
 
+// Connect with the MongoDB database 
 connect();
 
+// Setup middlewares to parse the post body
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Routes
 app.use('/signup', signUpRouter);
 app.use('/login', loginRouter);
 
