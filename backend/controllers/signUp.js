@@ -3,7 +3,6 @@ import User from "../models/user.js";
 
 const signUp = async (req, res) => {
     const body = req.body;
-
     if (!body.firstName) {
         res.status(400);
         throw new Error('First name is undefined');

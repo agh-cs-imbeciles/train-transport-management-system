@@ -21,6 +21,6 @@ export type Adress = {
 }
 export type Street = {
     name: string,
-    houseNumber: number,
-    apartamentNumber: number
+    houseNumber: string,
+    apartmentNumber: string
 }

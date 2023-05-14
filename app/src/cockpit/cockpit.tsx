@@ -17,11 +17,11 @@ export default function Cockpit(){
     return(
         <Container className="whole">
             <Container bsPrefix="cockpit-panel">
-                <Button onClick={(e)=>setCurrentComponent(0)}><p>Wyszukiwarka</p>
+                <Button onClick={()=>setCurrentComponent(0)}><p>Wyszukiwarka</p>
                 </Button>
-                <Button onClick={(e)=>setCurrentComponent(1)}><p>Rezerwacje</p>
+                <Button onClick={()=>setCurrentComponent(1)}><p>Rezerwacje</p>
                 </Button>
-                <Button onClick={(e)=>setCurrentComponent(2)}><p>Historia rezerwacji</p>
+                <Button onClick={()=>setCurrentComponent(2)}><p>Historia rezerwacji</p>
                 </Button>
             </Container>
             <Container bsPrefix="selected">

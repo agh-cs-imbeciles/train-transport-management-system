@@ -18,8 +18,8 @@ export default function Register(){
         address:{
             street:{
                 name:'',
-                houseNumber:0,
-                apartamentNumber:0,
+                houseNumber:'',
+                apartmentNumber:'',
             },
             city: '',
             zipCode: ''
@@ -49,14 +49,14 @@ export default function Register(){
     async function submit(e:FormEvent<HTMLFormElement>){
         e.preventDefault();
         //database
-        const response = await fetch(URLPath.loginPath,
+        // console.log(JSON.stringify(rData));
+        const response = await fetch(URLPath.registerPath,
             {
-                method: 'POST',
+                method: 'PUT',
                 body: JSON.stringify(rData),
-                headers:{"Access-Control-Allow-Origin": "http://localhost:5173/register"}
-                
-            })
-        console.log(response.status);
+                headers: {"Content-Type": "application/json;charset=utf-8"}
+            });
+        console.log(response);
         const accepted:Boolean = true;
         if(accepted){
             setMessages({value: true, text:"Udało się zalogować"});
@@ -85,7 +85,7 @@ export default function Register(){
                     <input type="text" name="city" onChange={changeValAddres} placeholder="Miasto" required/><br/>
                     <input type="text" name="name" onChange={changeValStreet} placeholder="Ulica" required/><br/>
                     <input type="text" name="houseNumber" onChange={changeValStreet} placeholder="Numer budynku" required/><br/>
-                    <input type="text" name="apartamentNumber" onChange={changeValStreet} placeholder="Numer budynku" required/><br/>
+                    <input type="text" name="apartmentNumber" onChange={changeValStreet} placeholder="Numer budynku" required/><br/>
                     <input type="text" name="zipCode" onChange={changeValAddres} placeholder="Kod pocztowy" required/><br/>
                 </div>
             </div>
