@@ -40,11 +40,13 @@
 The database is document-oriented, runned on `MongoDB`, more precisely [MongoDB Atlas](https://www.mongodb.com/atlas/database).
 
 ### Collections
-Contains X collections.
+Contains __X__ collections.
 
 #### Users
 Defines users of the application, clients and staff but without checking their roles.
 
+- Source code: [user.js](./models/user.js)
+- Source code preview:  
 `UserSchema`
 ```js
 const userSchema = mongoose.Schema({
@@ -121,6 +123,8 @@ const userSchema = mongoose.Schema({
 #### Reservations
 Defines all currently active reservations, grouped by `userId`.
 
+- Source code: [reservation.js](./models/reservation.js)
+- Source code preview:  
 `ReservationSchema`
 ```js
     {
@@ -158,7 +162,7 @@ Defines all currently active reservations, grouped by `userId`.
 - Method: 'PUT',
 - Required body: [full user schema](./models/user.js)
 
-Code:
+##### _Code_:
 - [sign-up controller](./controllers/signUp.js),
 - [sign-up route](./routes/signUp.js)
 
@@ -170,6 +174,6 @@ Code:
 { "email": "", "password": "" }
 ```
 
-Code:
+##### _Code_:
 - [login controller](./controllers/login.js),
 - [login route](./routes/login.js)
