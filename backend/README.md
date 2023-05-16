@@ -148,3 +148,28 @@ Defines all currently active reservations, grouped by `userId`.
 ```
 
 ## Backend application
+
+## Endpoints
+
+### Account
+
+#### Sign-up
+- URL: `/signup`,
+- Method: 'PUT',
+- Required body: [full user schema](./models/user.js)
+
+Code:
+- [sign-up controller](./controllers/signUp.js),
+- [sign-up route](./routes/signUp.js)
+
+#### Login
+- URL: `/login`,
+- Method: 'POST',
+- Required body: email and plain password
+```json
+{ "email": "", "password": "" }
+```
+
+Code:
+- [login controller](./controllers/login.js),
+- [login route](./routes/login.js)
