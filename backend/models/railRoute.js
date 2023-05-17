@@ -23,3 +23,4 @@ const RailRouteSchema = mongoose.Schema({
 });
 
 export default mongoose.model('RailRoute', RailRouteSchema);
+export { RailRouteSchema };

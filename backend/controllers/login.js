@@ -18,7 +18,7 @@ const login = async (req, res) => {
             throw new Error(`User of email "${body.email}" doesn't exist`);
         }
         if (!await bcrypt.compare(body.password, matchingUser.password)) {
-            throw new Error(`Wrong password`)
+            throw new Error(`Wrong password`);
         }
     
         console.log(chalk.cyan.bold('[Login]') + ` Found user: ${matchingUser.email}`);
