@@ -9,7 +9,7 @@ Development server: `Vue`
 
 ## Table of contents
 1. [Instructions how to run](#instructions-how-to-run)
-
+4.[Source code](#_Source code_)
 
 
 ## Instructions how to run
@@ -33,9 +33,9 @@ Development server: `Vue`
 We based our frontend on React.js library.
 
 ##### _Source code_:
--[login](./src/login_register/login.tsx)
--[signup](./src/login_register/register.tsx)
--[cockpit](./src/cockpit/cockpit.tsx)
+-[login](./src/login_register/login.tsx),
+-[signup](./src/login_register/register.tsx),
+-[cockpit](./src/cockpit/cockpit.tsx),
 
     
     ```
