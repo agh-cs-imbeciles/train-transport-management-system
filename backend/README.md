@@ -40,11 +40,13 @@
 The database is document-oriented, runned on `MongoDB`, more precisely [MongoDB Atlas](https://www.mongodb.com/atlas/database).
 
 ### Collections
-Contains X collections.
+Contains __X__ collections.
 
 #### Users
 Defines users of the application, clients and staff but without checking their roles.
 
+- Source code: [user.js](./models/user.js)
+- Source code preview:  
 `UserSchema`
 ```js
 const userSchema = mongoose.Schema({
@@ -78,11 +80,27 @@ const userSchema = mongoose.Schema({
     },
     address: {
         street: {
-            type: String,
-            required: [true, 'Street is required'],
-            minLength: [2, 'Street is too short'],
-            maxLength: [64, 'Street is too long'],
-            trim: true
+            name: {
+                type: String,
+                required: [true, 'Street name is required'],
+                minLength: [2, 'Street name is too short'],
+                maxLength: [64, 'Street name is too long'],
+                trim: true
+            },
+            houseNumber: {
+                type: String,
+                required: [true, 'House number is required'],
+                minLength: [1, 'House number is too short'],
+                maxLength: [10, 'House number is too long'],
+                trim: true
+            },
+            apartmentNumber: {
+                type: String,
+                required: [true, 'Apartment number is required'],
+                minLength: [1, 'Apartment number is too short'],
+                maxLength: [10, 'Apartment number is too long'],
+                trim: true
+            }  
         },
         city: {
             type: String,
@@ -105,6 +123,8 @@ const userSchema = mongoose.Schema({
 #### Reservations
 Defines all currently active reservations, grouped by `userId`.
 
+- Source code: [reservation.js](./models/reservation.js)
+- Source code preview:  
 `ReservationSchema`
 ```js
     {
@@ -132,3 +152,28 @@ Defines all currently active reservations, grouped by `userId`.
 ```
 
 ## Backend application
+
+## Endpoints
+
+### Account
+
+#### Sign-up
+- URL: `/signup`,
+- Method: `PUT`,
+- Required body: [full user schema](#users)
+
+##### _Source code_:
+- [sign-up controller](./controllers/signUp.js),
+- [sign-up route](./routes/signUp.js)
+
+#### Login
+- URL: `/login`,
+- Method: `POST`,
+- Required body: email and plain password
+```json
+{ "email": "", "password": "" }
+```
+
+##### _Source code_:
+- [login controller](./controllers/login.js),
+- [login route](./routes/login.js)
