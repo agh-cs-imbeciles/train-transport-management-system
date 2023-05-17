@@ -1,0 +1,41 @@
+$white: #ffffff;
+
+.main{
+  width: fit-content;
+  margin:auto;
+}
+.form{
+  background-color: $white;
+  margin: 20px 5% 0 5%;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px 5px #494949;
+  animation: right 2s;
+}
+
+.form{
+  input{
+    box-sizing: border-box;
+    margin: 15px 0 15px 0;
+    width: 100%;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    padding: 5px;
+  }
+}
+.fields{
+  display: flex;
+  flex-direction: row;
+  div{
+    margin: 20px;
+  }
+}
+.submit{
+  background-color: #057aec;
+  width: fit-content;
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+  color: $white;
+}
+
