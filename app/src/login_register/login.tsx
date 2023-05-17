@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { URLPath } from '../global_values';
 import './form.scss'
 import {LoginData, Message} from './types';
 
@@ -22,10 +23,15 @@ export default function Login(){
     }
 
     
-    function submit(e:FormEvent<HTMLFormElement>){
+    async function submit(e:FormEvent<HTMLFormElement>){
         e.preventDefault();
-        const accepted:Boolean = true;
-        if(accepted){
+        const response = await fetch(URLPath.loginPath,
+            {
+                method: 'POST',
+                body: JSON.stringify(lData),
+                headers: {"Content-Type": "application/json;charset=utf-8"}
+            });
+        if(response.ok){
             setMessages({value: true, text:"Udało się zalogować"});
         }
         else{

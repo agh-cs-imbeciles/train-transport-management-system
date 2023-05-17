@@ -57,12 +57,12 @@ export default function Register(){
                 headers: {"Content-Type": "application/json;charset=utf-8"}
             });
         console.log(response);
-        const accepted:Boolean = true;
-        if(accepted){
-            setMessages({value: true, text:"Udało się zalogować"});
+        
+        if(response.ok){
+            setMessages({value: true, text:"Udało się zarejestrować"});
         }
         else{
-            setMessages({value: false, text:"Niepoprawne hasło bądź nazwa użytkownika"});
+            setMessages({value: false, text:"Nie udało się zarejestrować"});
         }
 
     }

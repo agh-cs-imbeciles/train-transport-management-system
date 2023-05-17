@@ -1,9 +1,5 @@
 # Train transport management system
 `React` + `Typescript` frontend application  
-<<<<<<< HEAD
-
-=======
->>>>>>> 179ff70a4007d54e5911a2ecf17af48693b3d3f3
 Development server: `Vue`  
 
 #### Build on machine with

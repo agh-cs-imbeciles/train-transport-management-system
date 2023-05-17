@@ -1,31 +1,21 @@
-import { Button, Container } from "react-bootstrap";
+import { Nav, Navbar }  from "react-bootstrap"
+import { Container } from "react-bootstrap"
+import { Outlet,Link } from "react-router-dom" 
 import "./cockpit.scss"
-import Reservations from "./cockpit_views/reservations";
-import ReservationsHistory from "./cockpit_views/reservations_history";
-import SearchPanel from "./cockpit_views/search_panel";
-import { Component, useState } from "react"
-
 export default function Cockpit(){
-    const [currentComponent, setCurrentComponent] = useState<number>(0);
-    const components = [
-        <SearchPanel/>,
-        <Reservations/>,
-        <ReservationsHistory/>,
-        
-    ]
 
     return(
+
         <Container className="whole">
             <Container bsPrefix="cockpit-panel">
-                <Button onClick={()=>setCurrentComponent(0)}><p>Wyszukiwarka</p>
-                </Button>
-                <Button onClick={()=>setCurrentComponent(1)}><p>Rezerwacje</p>
-                </Button>
-                <Button onClick={()=>setCurrentComponent(2)}><p>Historia rezerwacji</p>
-                </Button>
+                <Nav bsPrefix="navbar" className="me-auto">
+                    <Nav.Link bsPrefix="nav-link" href="/cockpit/search">Wyszukaj</Nav.Link>
+                    <Nav.Link bsPrefix="nav-link" href="/cockpit/reservations">Rezerwacje</Nav.Link>
+                    <Nav.Link bsPrefix="nav-link" href="/cockpit/history">Historia Rezerwacji</Nav.Link>
+                </Nav>
             </Container>
             <Container bsPrefix="selected">
-                {components[currentComponent]}
+                <Outlet></Outlet>
             </Container>
         </Container>
     )

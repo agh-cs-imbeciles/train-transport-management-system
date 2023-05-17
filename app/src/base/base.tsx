@@ -1,6 +1,6 @@
 import { Nav, Navbar }  from "react-bootstrap"
 import { Container } from "react-bootstrap"
-import { Outlet } from "react-router-dom" 
+import { Outlet,Link } from "react-router-dom" 
 
 export default function Base(){
     return(
@@ -8,9 +8,9 @@ export default function Base(){
             <Container>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Nav className="me-auto">
-                    <Nav.Link href="cockpit">Kokpit</Nav.Link>
-                    <Nav.Link href="login">Zaloguj</Nav.Link>
-                    <Nav.Link href="register">Zarejestruj</Nav.Link>
+                    <Nav.Link href="/cockpit/search">Kokpit</Nav.Link>
+                    <Nav.Link href="/login">Zaloguj</Nav.Link>
+                    <Nav.Link href="/register">Zarejestruj</Nav.Link>
                 </Nav>
              </Container>
              <Container className="main-block">
