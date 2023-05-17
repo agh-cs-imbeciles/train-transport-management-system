@@ -33,6 +33,8 @@ Development server: `Vue`
 We based our frontend on React.js library.
 
 ##### _Source code_:
+- [login controller](./controllers/login.js),
+- [login route](./routes/login.js),
 -[login](./src/login_register/login.tsx),
 -[signup](./src/login_register/register.tsx),
 -[cockpit](./src/cockpit/cockpit.tsx),
