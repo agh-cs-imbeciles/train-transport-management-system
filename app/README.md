@@ -9,7 +9,7 @@ Development server: `Vue`
 
 ## Table of contents
 1. [Instructions how to run](#instructions-how-to-run)
-4.[Source code](#_Source code_)
+4 .[Source code](#source-code)
 
 
 ## Instructions how to run
