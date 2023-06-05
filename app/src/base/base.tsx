@@ -13,7 +13,10 @@ export default function Base(){
                             <Nav.Link href="/login">Zaloguj</Nav.Link>
                             <Nav.Link href="/register">Zarejestruj</Nav.Link>
                         </> :
-                        <Nav.Link href="/cockpit/search">Kokpit</Nav.Link>
+                        <>
+                            <Nav.Link href="/cockpit/search">Kokpit</Nav.Link>
+                            <Nav.Link href="/login" onClick={()=>{localStorage.removeItem("login_id");}}>Wyloguj się</Nav.Link>
+                        </> 
                     }
                 </Nav>
              </Container>

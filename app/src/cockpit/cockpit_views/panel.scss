@@ -1,0 +1,11 @@
+.from-to{
+    display: flex;
+    flex-direction: row;
+    .single{
+        width: fit-content;
+        height: fit-content;
+    }
+}
+.whole2{
+    flex-direction: column;
+}
