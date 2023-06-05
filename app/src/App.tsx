@@ -10,6 +10,7 @@ import Cockpit from './cockpit/cockpit'
 import SearchPanel from './cockpit/cockpit_views/search_panel';
 import Reservations from './cockpit/cockpit_views/reservations';
 import ReservationsHistory from './cockpit/cockpit_views/reservations_history';
+
 function App() {
   return (
     <BrowserRouter>

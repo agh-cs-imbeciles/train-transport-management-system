@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import './form.scss';
 import {Adress, Street, Message, UserData} from './types';
 import {URLPath} from "../global_values"
+import { Navigate, useNavigate } from 'react-router-dom';
 
 type UserDataKey = keyof UserData;
 type AdressDataKey = keyof Adress;
@@ -25,6 +26,11 @@ export default function Register(){
             zipCode: ''
         }
     })
+    const navigate = useNavigate(); 
+
+    if(localStorage.getItem("login_id")!=null){
+        return <Navigate to="/cockpit/search" replace/>
+    }
 
     function changeVal(e:ChangeEvent<HTMLInputElement>){
         const tmpData:UserData = structuredClone(rData);
@@ -48,8 +54,6 @@ export default function Register(){
     
     async function submit(e:FormEvent<HTMLFormElement>){
         e.preventDefault();
-        //database
-        // console.log(JSON.stringify(rData));
         const response = await fetch(URLPath.registerPath,
             {
                 method: 'PUT',
@@ -60,6 +64,7 @@ export default function Register(){
         
         if(response.ok){
             setMessages({value: true, text:"Udało się zarejestrować"});
+            setTimeout(()=>navigate("/login"),1000);
         }
         else{
             setMessages({value: false, text:"Nie udało się zarejestrować"});

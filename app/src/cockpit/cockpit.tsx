@@ -1,9 +1,11 @@
 import { Nav, Navbar }  from "react-bootstrap"
 import { Container } from "react-bootstrap"
-import { Outlet,Link } from "react-router-dom" 
+import { Outlet,Link, Navigate } from "react-router-dom" 
 import "./cockpit.scss"
 export default function Cockpit(){
-
+    if(localStorage.getItem("login_id")==null){
+        return <Navigate to="/login" replace/>
+    }
     return(
 
         <Container className="whole">
