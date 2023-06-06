@@ -9,14 +9,14 @@ export default function Cockpit(){
     return(
 
         <Container className={styles.whole}>
-            <Container bsPrefix={styles.cockpit_panel}>
-                <Nav bsPrefix={styles.navbar}>
-                    <Nav.Link bsPrefix="nav-link" href="/cockpit/search">Wyszukaj</Nav.Link>
-                    <Nav.Link bsPrefix="nav-link" href="/cockpit/reservations">Rezerwacje</Nav.Link>
-                    <Nav.Link bsPrefix="nav-link" href="/cockpit/history">Historia Rezerwacji</Nav.Link>
+            <Container className={styles.cockpit_panel}>
+                <Nav className={styles.navbar}>
+                    <Nav.Link className={styles.nav_link} href="/cockpit/search">Wyszukaj</Nav.Link>
+                    <Nav.Link className={styles.nav_link} href="/cockpit/reservations">Rezerwacje</Nav.Link>
+                    <Nav.Link className={styles.nav_link} href="/cockpit/history">Historia Rezerwacji</Nav.Link>
                 </Nav>
             </Container>
-            <Container bsPrefix={styles.selected}>
+            <Container className={styles.selected}>
                 <Outlet></Outlet>
             </Container>
         </Container>

@@ -1,0 +1,16 @@
+.card_text{
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 0;
+    margin:{
+        top: 5px;
+    }
+}
+.single_train{
+    box-sizing: border-box;
+    width: fit-content;
+    padding:10px;
+}
+.card_image{
+    width:100px;
+}
