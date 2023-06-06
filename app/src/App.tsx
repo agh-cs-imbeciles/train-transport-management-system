@@ -3,7 +3,7 @@
 import Login from './login_register/login'
 import Register from './login_register/register'
 import Base from './base/base'
-import './App.scss'
+import styles from './App.module.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Cockpit from './cockpit/cockpit'

@@ -1,6 +1,6 @@
 import { Button, Container, Form } from "react-bootstrap";
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
-import "./panel.scss"
+import styles from "./panel.module.scss"
 export default function SearchPanel(){
     return(
         <Container className="whole2">

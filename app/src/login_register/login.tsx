@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { URLPath } from '../global_values';
-import './form.scss'
+import styles from './form.module.scss'
 import {LoginData, Message} from './types';
 import { Navigate} from 'react-router-dom';
 
@@ -44,12 +44,12 @@ export default function Login(){
         }
     }
     return (
-    <div className='main'>
-        <form className='form' onSubmit={submit}>
+    <div className={styles.main}>
+        <form className={styles.form} onSubmit={submit}>
                 <p>Zaloguj się</p>
                 <input type="text" name="email" id="mail" value={lData.email} onChange={changeVal} placeholder="Adres e-mail" required/><br/>
                 <input type="password" name="password" id="password" value={lData.password} onChange={changeVal} placeholder="Hasło" required/><br/>
-                <input className='submit' type="submit" value="Zaloguj"/>
+                <input className={styles.submit} type="submit" value="Zaloguj"/>
                 <p>{messages.text}</p>
         </form>
     </div>
