@@ -6,18 +6,36 @@ const RailRouteSchema = mongoose.Schema({
         type: ObjectId,
         required: [true, 'Train ID of the rail route is required']
     },
-    start: {
-        type: PlaceSchema,
-        required: [true, 'Start of the rail route is required']
+    departure: {
+        place: {
+            type: PlaceSchema,
+            required: [true, 'Departure place of the rail route is required']
+        },
+        date: {
+            type: Date,
+            required: [true, 'Departure date of the rail is required']
+        }
     },
-    end: {
-        type: PlaceSchema,
-        required: [true, 'End of the rail route is required']
+    arrival: {
+        place: {
+            type: PlaceSchema,
+            required: [true, 'Arrival place of the rail route is required']
+        },
+        date: {
+            type: Date,
+            required: [true, 'Arrival date of the rail is required']
+        }
     },
-    stops: {
-        type: [PlaceSchema],
-        required: [true, 'Stops of the rail route are required']
-    }
+    stops: [{
+        place: {
+            type: PlaceSchema,
+            required: [true, 'Stop place of the rail route is required']
+        },
+        date: {
+            type: Date,
+            required: [true, 'Stop date of the rail is required']
+        }
+    }]
 }, {
     timestamps: true
 });
