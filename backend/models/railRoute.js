@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { PlaceSchema } from './place';
+import { StopSchema } from './stop';
 
 const RailRouteSchema = mongoose.Schema(
     {
@@ -8,19 +8,19 @@ const RailRouteSchema = mongoose.Schema(
             required: [true, 'Train ID of the rail route is required']
         },
         departure: {
-            place: {
-                type: PlaceSchema,
-                required: [true, 'Departure place of the rail route is required']
+            stop: {
+                type: StopSchema,
+                required: [true, 'Departure stop of the rail route is required']
             },
             date: {
                 type: Date,
-                required: [true, 'Departure date of the rail is required']
+                required: [true, 'Departure stop of the rail is required']
             }
         },
         arrival: {
-            place: {
-                type: PlaceSchema,
-                required: [true, 'Arrival place of the rail route is required']
+            stop: {
+                type: StopSchema,
+                required: [true, 'Arrival stop of the rail route is required']
             },
             date: {
                 type: Date,
@@ -28,9 +28,9 @@ const RailRouteSchema = mongoose.Schema(
             }
         },
         stops: [{
-            place: {
-                type: PlaceSchema,
-                required: [true, 'Stop place of the rail route is required']
+            stop: {
+                type: StopSchema,
+                required: [true, 'Stop of the rail route is required']
             },
             date: {
                 type: Date,
