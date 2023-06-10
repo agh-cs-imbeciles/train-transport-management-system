@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import { StopSchema } from './stop';
+import { StopSchema } from './stop.js';
 
 const RailRouteSchema = mongoose.Schema(
     {
         trainId: {
-            type: ObjectId,
+            type: mongoose.ObjectId,
             required: [true, 'Train ID of the rail route is required']
         },
         departure: {

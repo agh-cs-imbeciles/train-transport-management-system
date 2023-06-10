@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { PlaceSchema } from './place';
+import { PlaceSchema } from './place.js';
 
 const StopSchema = mongoose.Schema({
     name: {
@@ -9,9 +9,9 @@ const StopSchema = mongoose.Schema({
         maxLength: [48, 'Name of the stop is too long'],
         trim: true
     },
-    place: {
-        type: PlaceSchema,
-        required: [true, 'Place of the stop is required']
+    placeId: {
+        type: mongoose.ObjectId,
+        required: [true, 'Place id of the stop is required']
     }
 });
 
