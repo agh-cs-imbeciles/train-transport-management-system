@@ -5,7 +5,7 @@ const insertPlace = async (req, res) => {
 
     const newPlace = await Place.create({
         name: body.name,
-        province: body.name
+        province: body.province
     });
     console.log(newPlace);
 

@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongoose';
+import * as mongoose from 'mongoose';
 import Stop from '../models/stop.js';
 
 const insertRailStop = async (req, res) => {
@@ -6,7 +6,7 @@ const insertRailStop = async (req, res) => {
 
     const newStop = await Stop.create({
         name: body.name,
-        placeId: ObjectId(body.placeId)
+        placeId: new mongoose.Types.ObjectId(body.placeId)
     });
     console.log(newStop);
 
