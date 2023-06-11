@@ -68,8 +68,7 @@ const getPlacesByProvince = async (req, res) => {
         res.status(400);
         throw new Error(`Place province is not string type`);
     }
-
-
+    
     const places = await Place.find({
         province: { $regex: new RegExp(`.*${provinceName}.*`) }
     })
