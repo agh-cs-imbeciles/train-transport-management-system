@@ -85,5 +85,5 @@ const TrainSchema = mongoose.Schema({
     }
 });
 
-export default mongoose.Model('Train', TrainSchema);
+export default mongoose.model('Train', TrainSchema);
 export { TrainSeatSchema };

@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
 import signUpRouter from './routes/signUp.js';
 import loginRouter from './routes/login.js';
+import trainRouter from './routes/trains.js';
 import { connect } from './config/database.js';
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/signup', signUpRouter);
 app.use('/login', loginRouter);
+app.use('/trains', trainRouter);
 
 app.get('/', (req, res) => {
     res.send('TTMS backend works!');
