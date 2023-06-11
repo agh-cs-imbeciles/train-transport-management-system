@@ -17,18 +17,27 @@
 1. [Instructions how to run](#instructions-how-to-run)
 2. [Database](#database)
     1. [Collections](#collections)
-        1. [Users](#users)
-        2. [Reservations](#reservations)
+        1. [Users](#users-collections)
+        2. [Places](#places-collection)
+        3. [Stops](#stops-collection)
+        4. [Reservations](#reservations-collection)
 3. [Backend application](#backend-application)
     1. [API endpoints](#api-endpoints)
         1. [Account](#account)
             1. [Sign-up](#sign-up)
             2. [Login](#login)
         2. [Places](#places)
-            - [Insert a new place](#inser-a-new-place)
+            - [Insert a new place](#insert-a-new-place)
             - [Get a place by its ID](#get-a-place-by-its-id)
+            - [Get all places](#get-all-places)
             - [Get a place by its name](#get-a-place-by-its-name)
             - [Get all places by their province name](#get-all-places-by-their-province-name)
+        3. [Stops](#stops)
+            - [Insert a new stop](#insert-a-new-stop)
+            - [Get a stop by its ID](#get-a-stop-by-its-id)
+            - [Get all stops](#get-all-stops)
+            - [Get a stop by its name](#get-a-stop-by-its-name)
+            - [Get all stops by their place](#get-all-stops-by-their-place)
 
 
 
@@ -58,7 +67,7 @@ The database is document-oriented, runned on `MongoDB`, more precisely [MongoDB 
 ### Collections
 Contains __X__ collections.
 
-#### Users
+#### Users collection
 Defines users of the application, clients and staff but without checking their roles.
 
 - Source code: [user.js](./models/user.js)
@@ -136,7 +145,7 @@ const userSchema = mongoose.Schema({
 });
 ```
 
-#### Places
+#### Places collection
 Defines places - cities, towns and villages.
 
 - Source code: [place.js](./models/place.js)
@@ -161,8 +170,29 @@ Defines places - cities, towns and villages.
 }
 ```
 
+#### Stops collection
+Defines stops, contains `placeId`, so that it's combined with `Place` collection.
 
-#### Reservations
+- Source code: [stops.js](./models/stops.js)
+- Source code preview:  
+`StopSchema`
+```js
+{
+    name: {
+        type: String,
+        required: [true, 'Name of the stop is required'],
+        minLength: [2, 'Name of the stop is too short'],
+        maxLength: [48, 'Name of the stop is too long'],
+        trim: true
+    },
+    placeId: {
+        type: mongoose.ObjectId,
+        required: [true, 'Place id of the stop is required']
+    }
+}
+```
+
+#### Reservations collections
 Defines all currently active reservations, grouped by `userId`.
 
 - Source code: [reservation.js](./models/reservation.js)
@@ -225,25 +255,74 @@ Source code
 #### Insert a new place
 - URL: `/places`,
 - Method: `PUT`,
-- Required body: [full place schema](#places)
+- Required body: [full place schema](#places-collection)
 
 #### Get a place by its ID
 - URL: `/places/id/:id`,
 - Method: `GET`,
 - Required body: none
 - Returns: `PlaceSchema`  
-`:id` - 24-character id of a place
+`:id` - 24-character id of place
+
+#### Get all places
+- URL: `/places/all`,
+- Method: `GET`,
+- Required body: none
+- Returns: `[PlaceSchema]`  
 
 #### Get a place by its name
 - URL: `/places/name/:name`,
 - Method: `GET`,
 - Required body: none
 - Returns: `PlaceSchema` (best matched)  
-`:name` - name of a place
+`:name` - name of place
 
 #### Get all places by their province name
 - URL: `/places/province/:name`,
 - Method: `GET`,
 - Required body: none
 - Returns: `[PlaceSchema]`  
-`:name` - name of a province
+`:name` - name of province
+
+
+### Stops
+
+Source code
+- [stops controller](./controllers/stops.js),
+- [stops route](./routes/stops.js)
+
+#### Insert a new stop
+- URL: `/rail/stops`,
+- Method: `PUT`,
+- Required body: [full stop schema](#stops-collection)
+
+#### Get a stop by its ID
+- URL: `/rail/stops/id/:id`,
+- Method: `GET`,
+- Required body: none
+- Returns: `StopSchema`  
+`:id` - 24-character id of stop
+
+#### Get all stops
+- URL: `/rail/stops/all`,
+- Method: `GET`,
+- Required body: none
+- Returns: `[StopSchema]`  
+
+#### Get a stop by its name
+- URL: `/rail/stop/name/:name`,
+- Method: `GET`,
+- Required body: none
+- Returns: `StopSchema` (best matched)  
+`:name` - name of stop
+
+#### Get all stops by their place
+- URL: `/rail/stops/place`,
+- Method: `GET`,
+- Required body: place and/or province names  
+    `placeName` - name of the place, through which a filter be applied
+    `provinceName` - name of the province, through which a filter be applied
+```
+/rail/stops/place?placeName=Mszana&provinceName=polskie
+```
+- Returns: `[StopSchema]`  
