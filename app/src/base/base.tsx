@@ -1,8 +1,12 @@
 import { Nav, Navbar }  from "react-bootstrap"
 import { Container } from "react-bootstrap"
-import { Outlet,Link } from "react-router-dom" 
+import { Outlet,Link, Navigate, useLocation } from "react-router-dom" 
 
 export default function Base(){
+    const location = useLocation();
+    if(location.pathname=="/"){
+        return <Navigate to="/login" replace/>
+    }
     return(
         <>
             <Container>

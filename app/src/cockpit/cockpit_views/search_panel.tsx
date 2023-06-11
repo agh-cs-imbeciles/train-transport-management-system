@@ -3,8 +3,8 @@ import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
 import styles from "./panel.module.scss"
 import ListElement from "./list_element/list_element";
 import * as dayjs from "dayjs";
-import { MobileDatePicker } from "@mui/x-date-pickers";
 import { useState } from "react";
+import { Autocomplete } from "@mui/material";
 
 export default function SearchPanel(){
     const [firstDate, setFirstDate] = useState<dayjs.Dayjs>(dayjs().add(1,"minute"));
@@ -21,11 +21,11 @@ export default function SearchPanel(){
                 <Container className={styles.from_to}>
                     <Container className={styles.single}>
                         <Form.Label>Wybierz stację początkową</Form.Label>
-                        <Form.Select onChange={(val:any)=>setFirstPlace(val)}>
+                        {/* <Form.Select onChange={(val:any)=>setFirstPlace(val)}>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
-                        </Form.Select>
+                        </Form.Select> */}
                     </Container>
                     <Container className={styles.single}>
                         <Form.Label htmlFor="end">Wybierz stację końcową</Form.Label>
