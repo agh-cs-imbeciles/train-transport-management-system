@@ -18,6 +18,6 @@ router.put('/', asyncHandler(insertPlace));
 router.get('/id/:id', asyncHandler(getPlaceById));
 // router.get('/name/all', asyncHandler(getAllPlaceNames));
 router.get('/name/:name', asyncHandler(getPlaceByName));
-router.get('/province/:province', asyncHandler(getPlacesByProvince));
+router.get('/province/:name', asyncHandler(getPlacesByProvince));
 
 export default router;

@@ -62,21 +62,21 @@ const getPlaceByName = async (req, res) => {
 };
 
 const getPlacesByProvince = async (req, res) => {
-    const province = req.params.province;
+    const provinceName = req.params.name;
 
-    if (typeof province !== 'string') {
+    if (typeof provinceName !== 'string') {
         res.status(400);
         throw new Error(`Place province is not string type`);
     }
 
 
     const places = await Place.find({
-        province: { $regex: new RegExp(`.*${province}.*`) }
+        province: { $regex: new RegExp(`.*${provinceName}.*`) }
     })
         .exec();
     if (places.length === 0) {
         res.status(404);
-        throw new Error(`Places with province '${province}' not found`);
+        throw new Error(`Places with province '${provinceName}' not found`);
     }
     
     res.json(places);
