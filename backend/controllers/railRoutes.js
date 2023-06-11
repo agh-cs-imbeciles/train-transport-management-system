@@ -29,7 +29,7 @@ const insertRailRoute = async (req, res) => {
     });
 };
 
-const getRailRoute = async (req, res) => {
+const getRailRouteById = async (req, res) => {
     const id = 0;
     const matchingRoute = RailRoute.findById(id);
     if (!matchingRoute) {
@@ -37,8 +37,22 @@ const getRailRoute = async (req, res) => {
     }
 };
 
-const getAllRailRoutes = async (req, res) => {
+const getRailRouteByDate = async (req, res) => {
 
 };
 
-export { insertRailRoute, getRailRoute, getAllRailRoutes };
+const getRailRouteByDeparture = async (req, res) => {
+
+};
+
+const getRailRouteByArrival = async (req, res) => {
+
+};
+
+export {
+    insertRailRoute,
+    getRailRouteById,
+    getRailRouteByDate,
+    getRailRouteByDeparture,
+    getRailRouteByArrival
+};

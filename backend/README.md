@@ -74,7 +74,7 @@ Defines users of the application, clients and staff but without checking their r
 - Source code preview:  
 `UserSchema`
 ```js
-const userSchema = mongoose.Schema({
+{
     firstName: {
         type: String,
         required: [true, 'First name is required'],
@@ -142,7 +142,7 @@ const userSchema = mongoose.Schema({
             trim: true
         }
     }
-});
+}
 ```
 
 #### Places collection
@@ -236,7 +236,9 @@ Defines all currently active reservations, grouped by `userId`.
 #### Login
 - URL: `/login`,
 - Method: `POST`,
-- Required body: email and plain password
+- Required body:  
+    `string email` - email  
+    `string password` - plain password
 ```json
 { "email": "", "password": "" }
 ```
@@ -262,7 +264,7 @@ Source code
 - Method: `GET`,
 - Required body: none
 - Returns: `PlaceSchema`  
-`:id` - 24-character id of place
+`string :id` - 24-character id of place
 
 #### Get all places
 - URL: `/places/all`,
@@ -275,14 +277,14 @@ Source code
 - Method: `GET`,
 - Required body: none
 - Returns: `PlaceSchema` (best matched)  
-`:name` - name of place
+`string :name` - name of place
 
 #### Get all places by their province name
 - URL: `/places/province/:name`,
 - Method: `GET`,
 - Required body: none
 - Returns: `[PlaceSchema]`  
-`:name` - name of province
+`string :name` - name of province
 
 
 ### Stops
@@ -301,7 +303,7 @@ Source code
 - Method: `GET`,
 - Required body: none
 - Returns: `StopSchema`  
-`:id` - 24-character id of stop
+`string :id` - 24-character id of stop
 
 #### Get all stops
 - URL: `/rail/stops/all`,
@@ -314,15 +316,17 @@ Source code
 - Method: `GET`,
 - Required body: none
 - Returns: `StopSchema` (best matched)  
-`:name` - name of stop
+`string :name` - name of stop
 
 #### Get all stops by their place
 - URL: `/rail/stops/place`,
 - Method: `GET`,
 - Required body: place and/or province names  
-    `placeName` - name of the place, through which a filter be applied
-    `provinceName` - name of the province, through which a filter be applied
+    `string placeName` - name of the place, through which a filter be applied  
+    `string provinceName` - name of the province, through which a filter be applied  
+- Returns: `[StopSchema]`
+
+_Example request_:
 ```
 /rail/stops/place?placeName=Mszana&provinceName=polskie
 ```
-- Returns: `[StopSchema]`  
