@@ -65,8 +65,8 @@ const TrainSchema = mongoose.Schema({
     obtainedAtYear: {
         type: Number,
         required: [true, 'Obtained at year is required'],
-        min: [2023, 'Created at year is lower than 2023'],
-        max: [new Date().getFullYear(), 'Created at year is greater than current year']
+        min: [2023, 'Obtained at year is lower than 2023'],
+        max: [new Date().getFullYear(), 'Obtained at year is greater than current year']
     },
     inspections: [
         {
@@ -74,16 +74,16 @@ const TrainSchema = mongoose.Schema({
                 type: Number,
                 required: [true, 'Inspection year is required'],
                 min: [1804, 'Inspection year is lower than 1804'],
-                max: [new Date().getFullYear(), 'Created at year is greater than current year']
+                max: [new Date().getFullYear(), 'Inspection year is greater than current year']
             }
         }
     ],
     seats: {
         type: Map,
         of: TrainSeatSchema,
-        required: [true, 'Seat map is required']
+        required: [true, 'Seats map is required']
     }
 });
 
-export default mongoose.Model('Train', TrainSchema);
+export default mongoose.model('Train', TrainSchema);
 export { TrainSeatSchema };

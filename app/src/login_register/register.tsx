@@ -1,7 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import './form.scss';
+import styles from './form.module.scss';
 import {Adress, Street, Message, UserData} from './types';
 import {URLPath} from "../global_values"
+import { Navigate, useNavigate } from 'react-router-dom';
 
 type UserDataKey = keyof UserData;
 type AdressDataKey = keyof Adress;
@@ -25,6 +26,11 @@ export default function Register(){
             zipCode: ''
         }
     })
+    const navigate = useNavigate(); 
+
+    if(localStorage.getItem("login_id")!=null){
+        return <Navigate to="/cockpit/search" replace/>
+    }
 
     function changeVal(e:ChangeEvent<HTMLInputElement>){
         const tmpData:UserData = structuredClone(rData);
@@ -48,8 +54,6 @@ export default function Register(){
     
     async function submit(e:FormEvent<HTMLFormElement>){
         e.preventDefault();
-        //database
-        // console.log(JSON.stringify(rData));
         const response = await fetch(URLPath.registerPath,
             {
                 method: 'PUT',
@@ -60,6 +64,7 @@ export default function Register(){
         
         if(response.ok){
             setMessages({value: true, text:"Udało się zarejestrować"});
+            setTimeout(()=>navigate("/login"),1000);
         }
         else{
             setMessages({value: false, text:"Nie udało się zarejestrować"});
@@ -67,20 +72,20 @@ export default function Register(){
 
     }
     return (
-    <div className='main'>
-        <form className='form' onSubmit={submit}>
+    <div className={styles.main}>
+        <form className={styles.form} onSubmit={submit}>
             <p>Zarejestruj się</p>
-            <div className='fields'>
-                <div className='left'>
+            <div className={styles.fields}>
+                <div className={styles.left}>
                     <p>Dane osobowe</p>
                     <input type="text" name="firstName" onChange={changeVal} placeholder="Imię" required/><br/>
                     <input type="text" name="lastName" onChange={changeVal} placeholder="Nazwisko" required/><br/>
                     <input type="text" name="email" onChange={changeVal} placeholder="Adres E-mail" required/><br/>
                     <input type="password" name="password" onChange={changeVal} placeholder="Hasło" required/><br/>
                     <input type="password" name="repeat" onChange={changeVal} placeholder="Powtórz Hasło" required/><br/>
-                    <input className='submit' type="submit" value="Zarejestuj"/>
+                    <input className={styles.submit} type="submit" value="Zarejestuj"/>
                 </div>
-                <div className='right'>
+                <div className={styles.right}>
                     <p>Adres</p>
                     <input type="text" name="city" onChange={changeValAddres} placeholder="Miasto" required/><br/>
                     <input type="text" name="name" onChange={changeValStreet} placeholder="Ulica" required/><br/>

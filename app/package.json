@@ -1,6 +1,6 @@
 {
   "name": "traintms-application",
-  "version": "0.0.1",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,12 +9,37 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agh-cs-imbeciles/train-transport-management-system.git"
+  },
+  "contributors": [
+    {
+      "name": "Jakub Szaredko",
+      "url": "https://github.com/Szaroslav"
+    },
+    {
+      "name": "Piotr Kuchta",
+      "url": "https://github.com/kpiotr6"
+    },
+    {
+      "name": "Mateusz Knap",
+      "url": "https://github.com/MatoKnap"
+    }
+  ],
   "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.13.4",
+    "@mui/styled-engine-sc": "^5.12.0",
+    "@mui/x-date-pickers": "^6.6.0",
     "bootstrap": "^5.2.3",
+    "dayjs": "^1.11.8",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
-    "sass": "^1.62.1"
+    "sass": "^1.62.1",
+    "styled-components": "^5.3.11"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.6",

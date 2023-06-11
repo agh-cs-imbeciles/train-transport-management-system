@@ -8,9 +8,16 @@ export default function Base(){
             <Container>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Nav className="me-auto">
-                    <Nav.Link href="/cockpit/search">Kokpit</Nav.Link>
-                    <Nav.Link href="/login">Zaloguj</Nav.Link>
-                    <Nav.Link href="/register">Zarejestruj</Nav.Link>
+                    {localStorage.getItem("login_id")==null ?                    
+                        <>
+                            <Nav.Link href="/login">Zaloguj</Nav.Link>
+                            <Nav.Link href="/register">Zarejestruj</Nav.Link>
+                        </> :
+                        <>
+                            <Nav.Link href="/cockpit/search">Kokpit</Nav.Link>
+                            <Nav.Link href="/login" onClick={()=>{localStorage.removeItem("login_id");}}>Wyloguj się</Nav.Link>
+                        </> 
+                    }
                 </Nav>
              </Container>
              <Container className="main-block">
