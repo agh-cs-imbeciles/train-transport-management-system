@@ -20,6 +20,15 @@
         1. [Users](#users)
         2. [Reservations](#reservations)
 3. [Backend application](#backend-application)
+    1. [API endpoints](#api-endpoints)
+        1. [Account](#account)
+            1. [Sign-up](#sign-up)
+            2. [Login](#login)
+        2. [Places](#places)
+            - [Insert a new place](#inser-a-new-place)
+            - [Get a place by its ID](#get-a-place-by-its-id)
+            - [Get a place by its name](#get-a-place-by-its-name)
+            - [Get all places by their province name](#get-all-places-by-their-province-name)
 
 
 
@@ -127,6 +136,32 @@ const userSchema = mongoose.Schema({
 });
 ```
 
+#### Places
+Defines places - cities, towns and villages.
+
+- Source code: [place.js](./models/place.js)
+- Source code preview:  
+`PlaceSchema`
+```js
+{
+    name: {
+        type: String,
+        required: [true, 'Name of the place is required'],
+        minLength: [2, 'Name of the place is too short'],
+        maxLength: [48, 'Name of the place is too long'],
+        trim: true
+    },
+    province: {
+        type: String,
+        required: [true, 'Province of the place is required'],
+        minLength: [2, 'Province of the place is too short'],
+        maxLength: [48, 'Province of the place is too long'],
+        trim: true
+    }
+}
+```
+
+
 #### Reservations
 Defines all currently active reservations, grouped by `userId`.
 
@@ -134,36 +169,31 @@ Defines all currently active reservations, grouped by `userId`.
 - Source code preview:  
 `ReservationSchema`
 ```js
-    {
-        userId: {
-            type: ObjectId,
-            required: [true, 'User ID is required']
-        },
-        trainRideId: {
-            type: ObjectId,
-            required: [true, 'Train ride ID is required']
-        },
-        seats: [
-            {
-                seatId: {
-                    type: String,
-                    required: [true, 'Seat ID is required']
-                }
-            }
-        ]
+{
+    userId: {
+        type: ObjectId,
+        required: [true, 'User ID is required']
     },
-    {
-        timestamps: true
-    }
-);
+    trainRideId: {
+        type: ObjectId,
+        required: [true, 'Train ride ID is required']
+    },
+    seats: [
+        {
+            seatId: {
+                type: String,
+                required: [true, 'Seat ID is required']
+            }
+        }
+    ]
+}
 ```
 
 ## Backend application
 
-## Endpoints
+## API Endpoints
 
 ### Account
-
 #### Sign-up
 - URL: `/signup`,
 - Method: `PUT`,
@@ -184,3 +214,36 @@ Defines all currently active reservations, grouped by `userId`.
 ##### _Source code_:
 - [login controller](./controllers/login.js),
 - [login route](./routes/login.js)
+
+
+### Places
+
+Source code
+- [places controller](./controllers/places.js),
+- [places route](./routes/places.js)
+
+#### Insert a new place
+- URL: `/places`,
+- Method: `PUT`,
+- Required body: [full place schema](#places)
+
+#### Get a place by its ID
+- URL: `/places/id/:id`,
+- Method: `GET`,
+- Required body: none
+- Returns: `PlaceSchema`  
+`:id` - 24-character id of a place
+
+#### Get a place by its name
+- URL: `/places/name/:name`,
+- Method: `GET`,
+- Required body: none
+- Returns: `PlaceSchema` (best matched)  
+`:name` - name of a place
+
+#### Get all places by their province name
+- URL: `/places/province/:name`,
+- Method: `GET`,
+- Required body: none
+- Returns: `[PlaceSchema]`  
+`:name` - name of a province

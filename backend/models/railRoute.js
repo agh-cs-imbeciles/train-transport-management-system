@@ -1,26 +1,47 @@
 import mongoose from 'mongoose';
-import { PlaceSchema } from './place';
+import { StopSchema } from './stop.js';
 
-const RailRouteSchema = mongoose.Schema({
-    trainId: {
-        type: ObjectId,
-        required: [true, 'Train ID of the rail route is required']
+const RailRouteSchema = mongoose.Schema(
+    {
+        trainId: {
+            type: mongoose.ObjectId,
+            required: [true, 'Train ID of the rail route is required']
+        },
+        departure: {
+            stop: {
+                type: StopSchema,
+                required: [true, 'Departure stop of the rail route is required']
+            },
+            date: {
+                type: Date,
+                required: [true, 'Departure stop of the rail is required']
+            }
+        },
+        arrival: {
+            stop: {
+                type: StopSchema,
+                required: [true, 'Arrival stop of the rail route is required']
+            },
+            date: {
+                type: Date,
+                required: [true, 'Arrival date of the rail is required']
+            }
+        },
+        stops: [{
+            stop: {
+                type: StopSchema,
+                required: [true, 'Stop of the rail route is required']
+            },
+            date: {
+                type: Date,
+                required: [true, 'Stop date of the rail is required']
+            }
+        }]
     },
-    start: {
-        type: PlaceSchema,
-        required: [true, 'Start of the rail route is required']
-    },
-    end: {
-        type: PlaceSchema,
-        required: [true, 'End of the rail route is required']
-    },
-    stops: {
-        type: [PlaceSchema],
-        required: [true, 'Stops of the rail route are required']
+    {
+        timestamps: true
     }
-}, {
-    timestamps: true
-});
+);
 
 export default mongoose.model('RailRoute', RailRouteSchema);
 export { RailRouteSchema };

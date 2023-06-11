@@ -28,7 +28,8 @@ Development server: `Vue`
 4. Run development server
     ```
     npm run dev
-    
+    ```
+
 ## Frontend
 We based our frontend on React.js library.
 
@@ -38,7 +39,3 @@ We based our frontend on React.js library.
 - [login](./src/login_register/login.tsx),
 - [signup](./src/login_register/register.tsx),
 - [cockpit](./src/cockpit/cockpit.tsx),
-
-    
-    ```
-    
