@@ -1,4 +1,3 @@
-import * as mongoose from 'mongoose';
 import Place from '../models/place.js';
 
 const insertPlace = async (req, res) => {

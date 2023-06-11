@@ -1,3 +1,4 @@
+import * as util from 'node:util';
 import * as mongoose from 'mongoose';
 import Stop from '../models/stop.js';
 
@@ -59,23 +60,61 @@ const getStopByName = async (req, res) => {
 };
 
 const getStopsByPlace = async (req, res) => {
-    // const provinceName = req.params.name;
+    const { placeName, provinceName } = req.query;
 
-    // if (typeof provinceName !== 'string') {
-    //     res.status(400);
-    //     throw new Error(`Place province is not string type`);
-    // }
+    if (typeof placeName === undefined && provinceName === undefined) {
+        res.status(400);
+        throw new Error(`Place and province names are both undefined`);
+    }
 
-    // const places = await Place.find({
-    //     province: { $regex: new RegExp(`.*${provinceName}.*`) }
-    // })
-    //     .exec();
-    // if (places.length === 0) {
-    //     res.status(404);
-    //     throw new Error(`Places with province '${provinceName}' not found`);
-    // }
+    const matchStage = {};
+    if (typeof placeName === 'string') {
+        matchStage.name = { $regex: new RegExp(`.*${placeName}.*`) };
+    }
+    if (typeof provinceName === 'string') {
+        matchStage.province = { $regex: new RegExp(`.*${provinceName}.*`) };
+    }
+
+    console.log(matchStage);
+
+    const stops = await Stop.aggregate([
+        {
+            $lookup: {
+                from: 'places',
+                localField: 'placeId',
+                foreignField: '_id',
+                as: 'place',
+                pipeline: [
+                    { $match: matchStage },
+                    {
+                        $project: {
+                            '_id': false,
+                            'name': true,
+                            'province': true
+                        }
+                    }
+                ]
+            }
+        },
+        { $match: { 'place.0': { $exists: true } } },
+        {
+            $project: {
+                '_id': false,
+                'name': true,
+                'place': true
+            }
+        }
+    ])
+        .exec();
+
+    // console.log(util.inspect(stops, false, null, true));
+
+    if (stops.length === 0) {
+        res.status(404);
+        throw new Error(`Stops not found`);
+    }
     
-    // res.json(places);
+    res.json(stops);
 };
 
 export {
