@@ -7,6 +7,7 @@ import loginRouter from './routes/login.js';
 import railRoutesRouter from './routes/railRoutes.js';
 import railStopsRouter from './routes/stops.js';
 import placesRouter from './routes/places.js';
+import trainRouter from './routes/trains.js';
 import { connect } from './config/database.js';
 const app = express();
 
@@ -31,6 +32,7 @@ app.use('/login', loginRouter);
 app.use('/rail/routes', railRoutesRouter);
 app.use('/rail/stops', railStopsRouter);
 app.use('/places', placesRouter);
+app.use('/trains', trainRouter);
 
 app.get('/', (req, res) => {
     res.send('TTMS backend works!');
