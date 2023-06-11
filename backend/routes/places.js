@@ -16,7 +16,7 @@ router.use((req, res, next) => {
 
 router.put('/', asyncHandler(insertPlace));
 router.get('/id/:id', asyncHandler(getPlaceById));
-router.get('/name/all', asyncHandler(getAllPlaceNames));
+// router.get('/name/all', asyncHandler(getAllPlaceNames));
 router.get('/name/:name', asyncHandler(getPlaceByName));
 router.get('/province/:province', asyncHandler(getPlacesByProvince));
 

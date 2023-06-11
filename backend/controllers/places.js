@@ -51,7 +51,7 @@ const getPlaceByName = async (req, res) => {
     }
 
     const place = await Place.findOne({
-        name: { $regex: new RegExp(placeName) }
+        name: { $regex: new RegExp(`.*${placeName}.*`) }
     });
     if (!place) {
         res.status(404);
@@ -62,7 +62,24 @@ const getPlaceByName = async (req, res) => {
 };
 
 const getPlacesByProvince = async (req, res) => {
+    const province = req.params.province;
 
+    if (typeof province !== 'string') {
+        res.status(400);
+        throw new Error(`Place province is not string type`);
+    }
+
+
+    const places = await Place.find({
+        province: { $regex: new RegExp(`.*${province}.*`) }
+    })
+        .exec();
+    if (places.length === 0) {
+        res.status(404);
+        throw new Error(`Places with province '${province}' not found`);
+    }
+    
+    res.json(places);
 };
 
 export { insertPlace, getAllPlaceNames, getPlaceById, getPlaceByName, getPlacesByProvince };
