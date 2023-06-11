@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import asyncHandler from 'express-async-handler';
 import {
     insertPlace,
-    getAllPlaceNames,
+    getAllPlaces,
     getPlaceById,
     getPlaceByName,
     getPlacesByProvince } from '../controllers/places.js';
@@ -16,7 +16,7 @@ router.use((req, res, next) => {
 
 router.put('/', asyncHandler(insertPlace));
 router.get('/id/:id', asyncHandler(getPlaceById));
-// router.get('/name/all', asyncHandler(getAllPlaceNames));
+router.get('/all', asyncHandler(getAllPlaces));
 router.get('/name/:name', asyncHandler(getPlaceByName));
 router.get('/province/:name', asyncHandler(getPlacesByProvince));
 

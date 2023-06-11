@@ -37,7 +37,13 @@ const getStopById = async (req, res) => {
 };
 
 const getAllStops = async (req, res) => {
+    const stops = await Stop.find({}).exec();
+    if (stops.length === 0) {
+        res.status(404);
+        throw new Error(`Stops ${stopId} not found`);
+    }
 
+    res.json(stops);
 };
 
 const getStopByName = async (req, res) => {
@@ -61,8 +67,8 @@ const getStopByName = async (req, res) => {
 
 const getStopsByPlace = async (req, res) => {
     const { placeName, provinceName } = req.query;
-
-    if (typeof placeName === undefined && provinceName === undefined) {
+    
+    if (typeof placeName === 'undefined' && typeof provinceName === 'undefined') {
         res.status(400);
         throw new Error(`Place and province names are both undefined`);
     }
@@ -74,8 +80,6 @@ const getStopsByPlace = async (req, res) => {
     if (typeof provinceName === 'string') {
         matchStage.province = { $regex: new RegExp(`.*${provinceName}.*`) };
     }
-
-    console.log(matchStage);
 
     const stops = await Stop.aggregate([
         {

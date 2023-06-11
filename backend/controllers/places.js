@@ -38,8 +38,14 @@ const getPlaceById = async (req, res) => {
     res.json(place);
 };
 
-const getAllPlaceNames = async (req, res) => {
+const getAllPlaces = async (req, res) => {
+    const places = await Place.find({}).exec();
+    if (places.length === 0) {
+        res.status(404);
+        throw new Error(`Places ${stopId} not found`);
+    }
 
+    res.json(places);
 };
 
 const getPlaceByName = async (req, res) => {
@@ -81,4 +87,4 @@ const getPlacesByProvince = async (req, res) => {
     res.json(places);
 };
 
-export { insertPlace, getAllPlaceNames, getPlaceById, getPlaceByName, getPlacesByProvince };
+export { insertPlace, getAllPlaces, getPlaceById, getPlaceByName, getPlacesByProvince };
