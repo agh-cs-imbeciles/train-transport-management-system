@@ -7,6 +7,11 @@ const RailRouteSchema = mongoose.Schema(
             type: mongoose.ObjectId,
             required: [true, 'Train ID of the rail route is required']
         },
+        ticketsCost: {
+            type: Map,
+            of: Number,
+            required: [true, 'Tickets cost map of the rail route is required']
+        },
         departure: {
             stop: {
                 type: StopSchema,
