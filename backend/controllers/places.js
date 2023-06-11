@@ -26,13 +26,14 @@ const getPlaceById = async (req, res) => {
     }
     if (placeId.length !== 24) {
         res.status(400);
-        throw new Error(`Place ID is too ${placeId.length < 24 ? 'short' : 'long'} (24 characters)`);
+        const lengthMessage = placeId.length < 24 ? 'short' : 'long';
+        throw new Error(`Place ID '${placeId}' is too ${lengthMessage} (24 characters)`);
     }
 
     const place = await Place.findById(placeId);
     if (!place) {
         res.status(404);
-        throw new Error(`Place ${placeId} not found`);
+        throw new Error(`Place '${placeId}' not found`);
     }
     
     res.json(place);
@@ -55,7 +56,7 @@ const getPlaceByName = async (req, res) => {
     });
     if (!place) {
         res.status(404);
-        throw new Error(`Place ${placeName} not found`);
+        throw new Error(`Place '${placeName}' not found`);
     }
     
     res.json(place);
@@ -68,7 +69,7 @@ const getPlacesByProvince = async (req, res) => {
         res.status(400);
         throw new Error(`Place province is not string type`);
     }
-    
+
     const places = await Place.find({
         province: { $regex: new RegExp(`.*${provinceName}.*`) }
     })

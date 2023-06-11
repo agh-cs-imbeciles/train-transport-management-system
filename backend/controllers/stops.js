@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import Stop from '../models/stop.js';
 
-const insertRailStop = async (req, res) => {
+const insertStop = async (req, res) => {
     const body = req.body;
 
     const newStop = await Stop.create({
@@ -10,54 +10,55 @@ const insertRailStop = async (req, res) => {
     });
     console.log(newStop);
 
-    res.json({ railStopId: newStop._id.toString() })
+    res.json({ stopId: newStop._id.toString() })
 };
 
-const getRailStopById = async (req, res) => {
-    const railStopId = req.params.id;
+const getStopById = async (req, res) => {
+    const stopId = req.params.id;
 
-    if (typeof railStopId !== 'string') {
+    if (typeof stopId !== 'string') {
         res.status(400);
-        throw new Error('Rail stop ID is not string type');
+        throw new Error('Stop ID is not string type');
     }
-    if (railStopId.length !== 24) {
+    if (stopId.length !== 24) {
         res.status(400);
-        throw new Error(`Rail stop is too ${railStopId.length < 24 ? 'short' : 'long'} (24 characters)`);
+        const lengthMessage = stopId.length < 24 ? 'short' : 'long';
+        throw new Error(`Stop ID is too ${lengthMessage} (24 characters)`);
     }
 
-    const place = await Place.findById(railStopId);
-    if (!place) {
+    const stop = await Stop.findById(stopId);
+    if (!stop) {
         res.status(404);
-        throw new Error(`Rail stop ${railStopId} not found`);
+        throw new Error(`Stop ${stopId} not found`);
     }
     
-    res.json(place);
+    res.json(stop);
 };
 
-const getAllRailStops = async (req, res) => {
+const getAllStops = async (req, res) => {
 
 };
 
-const getRailStopByName = async (req, res) => {
-    // const placeName = req.params.name;
+const getStopByName = async (req, res) => {
+    const stopName = req.params.name;
 
-    // if (typeof placeName !== 'string') {
-    //     res.status(400);
-    //     throw new Error('Place name is not string type');
-    // }
+    if (typeof stopName !== 'string') {
+        res.status(400);
+        throw new Error('Stop name is not string type');
+    }
 
-    // const place = await Place.findOne({
-    //     name: { $regex: new RegExp(`.*${placeName}.*`) }
-    // });
-    // if (!place) {
-    //     res.status(404);
-    //     throw new Error(`Place ${placeName} not found`);
-    // }
+    const stop = await Stop.findOne({
+        name: { $regex: new RegExp(`.*${stopName}.*`) }
+    });
+    if (!stop) {
+        res.status(404);
+        throw new Error(`Stop '${stopName}' not found`);
+    }
     
-    // res.json(place);
+    res.json(stop);
 };
 
-const getRailStopsByPlace = async (req, res) => {
+const getStopsByPlace = async (req, res) => {
     // const provinceName = req.params.name;
 
     // if (typeof provinceName !== 'string') {
@@ -78,9 +79,9 @@ const getRailStopsByPlace = async (req, res) => {
 };
 
 export {
-    insertRailStop,
-    getAllRailStops,
-    getRailStopById,
-    getRailStopByName,
-    getRailStopsByPlace
+    insertStop,
+    getAllStops,
+    getStopById,
+    getStopByName,
+    getStopsByPlace
 };
