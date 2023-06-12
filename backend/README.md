@@ -173,7 +173,7 @@ Defines places - cities, towns and villages.
 #### Stops collection
 Defines stops, contains `placeId`, so that it's combined with `Place` collection.
 
-- Source code: [stops.js](./models/stops.js)
+- Source code: [stops.js](./models/stop.js)
 - Source code preview:  
 `StopSchema`
 ```js
