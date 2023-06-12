@@ -3,14 +3,37 @@ import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
 import styles from "./panel.module.scss"
 import ListElement from "./list_element/list_element";
 import * as dayjs from "dayjs";
-import { useState } from "react";
-import { Autocomplete } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Autocomplete, TextField } from "@mui/material";
+import { URLPath } from "../../global_values";
 
 export default function SearchPanel(){
     const [firstDate, setFirstDate] = useState<dayjs.Dayjs>(dayjs().add(1,"minute"));
     const [secondDate, setSecondDate] = useState<dayjs.Dayjs>(dayjs().add(1,"day").add(1,"minute"));
     const [firstPlace, setFirstPlace] = useState<string>();
     const [secondPlace, setSecondPlace] = useState<string>();
+    const [places, setPlaces] = useState<Array<any>>([]);
+    const [ends, setEnds] = useState<Array<any>>([]);
+    
+    useEffect(() => {
+        fetch(URLPath.placesAll)
+          .then(res => res.json())
+          .then(data => {setPlaces(data.map((x:any)=>
+            {
+                const container = {
+                    label:x.name,
+                    _id:x._id
+                };
+                return container
+            }
+            ))});
+      }, []);
+
+    async function getAllEnds(place:string){
+
+    }
+
+    
     return(
         <Container className={styles.whole}>
             <Form className={styles.search_tab}>
@@ -21,19 +44,23 @@ export default function SearchPanel(){
                 <Container className={styles.from_to}>
                     <Container className={styles.single}>
                         <Form.Label>Wybierz stację początkową</Form.Label>
-                        {/* <Form.Select onChange={(val:any)=>setFirstPlace(val)}>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </Form.Select> */}
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={places}
+                            renderInput={(params) => <TextField {...params} label="Stacja początkowa" />}
+                            onChange={(event,input)=>{console.log(input);setFirstPlace(input);getAllEnds(input)}}
+                        />
                     </Container>
                     <Container className={styles.single}>
                         <Form.Label htmlFor="end">Wybierz stację końcową</Form.Label>
-                        <Form.Select onChange={(val:any)=>{setSecondPlace(val);console.log(secondDate>firstDate)}}>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </Form.Select>
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={ends}
+                            renderInput={(params) => <TextField {...params} label="Stacja końcowa" />}
+                            onChange={(event,input)=>setSecondPlace(input)}
+                        />
                     </Container>
                 </Container>
                 <Button disabled={secondDate<firstDate ? true:false} className={styles.look_for}>Szukaj</Button>
