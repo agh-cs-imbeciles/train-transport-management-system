@@ -1,0 +1,37 @@
+.whole{
+    display: flex;
+    flex-direction: row;
+}
+.cockpit_panel{
+    Button{
+        height: fit-content;
+        width:  fit-content;
+        p{
+            margin: 0;
+        }
+        margin:5px;
+    }
+    width: fit-content;
+    background-color: rgb(203, 203, 203);
+    display: flex;
+    margin: 10px;
+    flex-direction: column;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px 2px #494949;
+}
+.selected{
+    flex-grow: 10;
+    border-radius: 20px;
+    margin: 10px;
+    background-color: rgb(203, 203, 203);
+    box-shadow: 0px 0px 10px 2 #494949;
+}
+.navbar{
+    .nav_link{
+        margin:10px;
+    }
+    display: flex;
+    flex-direction: column;
+    padding:10px;
+
+}

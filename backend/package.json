@@ -1,9 +1,10 @@
 {
   "name": "traintms-backend",
-  "version": "0.0.1",
+  "version": "0.4.0",
   "private": true,
   "description": "Backend of the TTMS",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node .",
     "dev": "nodemon . & npm run scss",
@@ -34,7 +35,14 @@
   },
   "homepage": "https://github.com/agh-cs-imbeciles/train-transport-management-system#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "chalk": "^5.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "dotenv-expand": "^10.0.0",
     "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^7.1.1",
     "pug": "^3.0.2",
     "sass": "^1.62.1"
   },
