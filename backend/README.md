@@ -21,6 +21,7 @@
         2. [Places](#places-collection)
         3. [Stops](#stops-collection)
         4. [Reservations](#reservations-collection)
+        5. [Trains](#trains-collection)
 3. [Backend application](#backend-application)
     1. [API endpoints](#api-endpoints)
         1. [Account](#account)
@@ -38,6 +39,13 @@
             - [Get all stops](#get-all-stops)
             - [Get a stop by its name](#get-a-stop-by-its-name)
             - [Get all stops by their place](#get-all-stops-by-their-place)
+        4. [Trains](#Trains)
+            - [Insert a new train](#insert-a-new-train)
+            - [Get a train by its ID](#get-a-train-by-its-id)
+            - [Get a list of selected types seats from selected train](#get-a-seats-by-its-type)
+        5. [Reservations](#Reservations)
+            - [Insert a new Reservation](#insert-a-new-train)
+            - [Get a reservation by its ID](#get-a-train-by-its-id)
 
 
 
@@ -192,7 +200,7 @@ Defines stops, contains `placeId`, so that it's combined with `Place` collection
 }
 ```
 
-#### Reservations collections
+#### Reservations collection
 Defines all currently active reservations, grouped by `userId`.
 
 - Source code: [reservation.js](./models/reservation.js)
@@ -201,12 +209,12 @@ Defines all currently active reservations, grouped by `userId`.
 ```js
 {
     userId: {
-        type: ObjectId,
+        type: mongoose.ObjectId,
         required: [true, 'User ID is required']
     },
-    trainRideId: {
-        type: ObjectId,
-        required: [true, 'Train ride ID is required']
+    railRouteId: {
+        type: mongoose.ObjectId,
+        required: [true, 'Train route ID is required']
     },
     seats: [
         {
@@ -216,6 +224,106 @@ Defines all currently active reservations, grouped by `userId`.
             }
         }
     ]
+},
+{
+    timestamps: true
+}
+
+```
+
+#### Trains collection
+Defines all currently active trains and their seats.
+
+- Source code: [train.js](./models/train.js)
+- Source code preview:  
+`TrainSchema`
+```js
+{
+    name: {
+        type: String,
+        required: [true, 'Name is required'],
+        minLength: [1, 'Name is too short'],
+        maxLength: [48, 'Name is too long'],
+        trim: true
+    },
+    types: {
+        type: Map,
+        required: [true, 'Type map is required'],
+        of: Number
+    },
+    manufacturerInfo: {
+        manufacturer: {
+            type: String,
+            required: [true, 'Manufacturer name is required'],
+            minLength: [1, 'Manufacturer name is too short'],
+            maxLength: [48, 'Manufacturer name is too long'],
+            trim: true
+        },
+        model: {
+            type: String,
+            required: [true, 'Model is required'],
+            minLength: [1, 'Model is too short'],
+            maxLength: [32, 'Model is too long'],
+            trim: true
+        },
+        createdAtYear: {
+            type: Number,
+            min: [1804, 'Created at year is lower than 1804'],
+            max: [new Date().getFullYear(), 'Created at year is greater than current year']
+        }
+    },
+    obtainedAtYear: {
+        type: Number,
+        required: [true, 'Obtained at year is required'],
+        min: [2023, 'Obtained at year is lower than 2023'],
+        max: [new Date().getFullYear(), 'Obtained at year is greater than current year']
+    },
+    inspections: [
+        {
+            year: {
+                type: Number,
+                required: [true, 'Inspection year is required'],
+                min: [1804, 'Inspection year is lower than 1804'],
+                max: [new Date().getFullYear(), 'Inspection year is greater than current year']
+            }
+        }
+    ],
+    seats: {
+        type: Map,
+        of: TrainSeatSchema,
+        required: [true, 'Seats map is required']
+    }
+}
+```
+
+`TrainSeatSchema`
+```js
+{
+    seatId: {
+        type: String,
+        required: [true, 'Seat ID is required'],
+        minLength: [1, 'Seat ID is too short'],
+        maxLength: [16, 'Seat ID is too long'],
+        trim: true
+    },
+    types: {
+        type: Map,
+        of: Number
+    },
+    position: {
+        row: {
+            type: Number,
+            required: [true, 'Seat row is required'],
+            min: [1, 'Seat row is too low'],
+            max: [512, 'Seat row is too high']
+        },
+        column: {
+            type: Number,
+            required: [true, 'Seat column is required'],
+            min: [1, 'Seat column is too low'],
+            max: [32, 'Seat column is too high']
+        }
+    }
 }
 ```
 
@@ -330,3 +438,44 @@ _Example request_:
 ```
 /rail/stops/place?placeName=Mszana&provinceName=polskie
 ```
+
+### Trains
+
+Source code
+- [trains controller](./controllers/train.js),
+- [trains route](./routes/trains.js)
+
+#### Insert a new train
+- URL: `/trains`,
+- Method: `POST`,
+- Required body: [full trains schema](#trains-collection)
+
+#### Get a train by its ID
+- URL: `/trains/:id`,
+- Method: `GET`,
+- Required body: none
+- Returns: `TrainSchema`  
+
+#### Get a seats by its type
+- URL: `/trains/:id/seats/:listOfSeatTypes`, seperated by `,`,
+- Method: `GET`,
+- Required body: none
+- Returns: List of `TrainSeatSchema`  
+
+
+### Reservations
+
+Source code
+- [reservations controller](./controllers/reservation.js),
+- [reservation route](./routes/reservation.js)
+
+#### Insert a new reservation
+- URL: `/reservation`,
+- Method: `POST`,
+- Required body: [full reservation schema](#reservations-collection)
+
+#### Get a reservation by its ID
+- URL: `/reservation/:id`,
+- Method: `GET`,
+- Required body: none
+- Returns: `ReservationSchema`  
