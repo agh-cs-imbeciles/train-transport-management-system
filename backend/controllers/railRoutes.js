@@ -6,27 +6,15 @@ const insertRailRoute = async (req, res) => {
     RailRoute.create({
         trainId: ObjectId(body.trainId),
         ticketsCost: {
-            'firstClass': 250,
-            'standard': 150
+            'firstClass': body.ticketsCost.firstClass,
+            'standard': body.ticketsCost.standard
         },
         departure: {
-            stop: {
-                name: body.departure.stop.name,
-                place: {
-                    name: body.departure.stop.place.name,
-                    province: body.departure.stop.place.province
-                }
-            },
+            stopId: mongoose.Types.ObjectId(body.departure.stopId),
             date: new Date(body.departure.date)
         },
         arrival: {
-            stop: {
-                name: body.arrival.stop.name,
-                place: {
-                    name: body.arrival.stop.place.name,
-                    province: body.arrival.stop.place.province
-                }
-            },
+            stop: mongoose.Types.ObjectId(body.arrival.stopId),
             date: new Date(body.arrival.date)
         },
         stops: body.stops
