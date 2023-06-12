@@ -68,4 +68,40 @@ const getTrainById = async (req, res) => {
     }
   };
 
-export { createTrain, getTrainById };
+
+  const getTrainSeats = async (req, res) => {
+    try {
+      const trainId = req.params.id;
+      const listOfSeatTypes = req.params.listOfSeatTypes.split(',');
+      
+  
+      // Find the train by ID
+      const train = await Train.findById(trainId);
+  
+      if (!train) {
+        throw new Error(`Train with ID ${trainId} not found`);
+      }
+  
+      // Filter the seats based on the provided seat types
+      const filteredSeats = [];
+      // Iterate through each seat in the train
+      for (const seat of train.seats.values()) {
+        for (const seatType of listOfSeatTypes) {
+          if (seat.types.get(seatType)) {
+            filteredSeats.push(seat);
+            break;
+          }
+        }
+      }
+  
+      console.log(chalk.cyan.bold('[Get Train Seats]') + ` Seats found for train: ${train.name}`);
+  
+      res.json(filteredSeats);
+    } catch (error) {
+      console.log(chalk.red.bold('[Get Train Seats] Error:'), error);
+      res.status(400).json({ error: error.message });
+    }
+};
+
+
+export { createTrain, getTrainById, getTrainSeats };
