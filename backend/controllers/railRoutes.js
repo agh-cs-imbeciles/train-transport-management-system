@@ -5,6 +5,10 @@ const insertRailRoute = async (req, res) => {
 
     RailRoute.create({
         trainId: ObjectId(body.trainId),
+        ticketsCost: {
+            'firstClass': 250,
+            'standard': 150
+        },
         departure: {
             stop: {
                 name: body.departure.stop.name,
