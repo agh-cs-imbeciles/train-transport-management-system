@@ -1,7 +1,12 @@
 import express from 'express';
 import chalk from 'chalk';
 import asyncHandler from 'express-async-handler';
-import { insertRailRoute } from '../controllers/railRoutes.js';
+import {
+    insertRailRoute,
+    getRailRouteById,
+    getRailRouteByDate,
+    getRailRouteByDeparture,
+    getRailRouteByArrival } from '../controllers/railRoutes.js';
 const router = express.Router();
 
 router.use((req, res, next) => {
