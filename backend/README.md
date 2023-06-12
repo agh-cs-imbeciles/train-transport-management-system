@@ -200,7 +200,7 @@ Defines stops, contains `placeId`, so that it's combined with `Place` collection
 }
 ```
 
-#### Reservations collections
+#### Reservations collection
 Defines all currently active reservations, grouped by `userId`.
 
 - Source code: [reservation.js](./models/reservation.js)
@@ -231,7 +231,7 @@ Defines all currently active reservations, grouped by `userId`.
 
 ```
 
-#### Trains collections
+#### Trains collection
 Defines all currently active trains and their seats.
 
 - Source code: [train.js](./models/train.js)
