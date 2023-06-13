@@ -70,7 +70,7 @@ const getStopsByPlace = async (req, res) => {
     
     if (typeof placeName === 'undefined' && typeof provinceName === 'undefined') {
         res.status(400);
-        throw new Error(`Place and province names are both undefined`);
+        throw new Error('Place and province names are both undefined (unsent)');
     }
 
     const matchStage = {};

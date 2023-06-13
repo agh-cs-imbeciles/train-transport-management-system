@@ -48,7 +48,115 @@ const getRailRouteById = async (req, res) => {
 };
 
 const getRailRouteByDate = async (req, res) => {
+    const departureDateString = req.body.departureDate,
+          arrivalDateString = req.body.arrivalDate;
+    console.log(req.body);
+    if (typeof departureDateString === 'undefined' && typeof arrivalDateString === 'undefined') {
+        res.status(400);
+        throw new Error('Departure and arrival dates are both undefined (unsent)');
+    }
 
+    // if (!departureDateString) {
+    //     res.status(400);
+    //     throw new Error('Departure date of the rail route is undefined (unsent)');
+    // }
+    // if (departureDateString !== 'string') {
+    //     res.status(400);
+    //     throw new Error('Departure date of the rail route is not string type');
+    // }
+    // if (!arrivalDateString) {
+    //     res.status(400);
+    //     throw new Error('Arrival date of the rail route is undefined (unsent)');
+    // }
+    // if (arrivalDateString !== 'string') {
+    //     res.status(400);
+    //     throw new Error('Arrival date of the rail route is not string type');
+    // }
+
+    const departureDate = new Date(departureDateString),
+          arrivalDate = new Date(arrivalDateString);
+    if (!isNaN(departureDate.valueOf())
+        && !isNaN(arrivalDate.valueOf())
+        && arrivalDate - departureDate <= 0
+    ) {
+        res.status(400);
+        throw new Error('Arrival date is older than departure one');
+    }
+
+    const matchStage = {};
+    if (!isNaN(departureDate.valueOf())) {
+        matchStage['departure.date'] = { $gte: departureDate };
+    }
+    if (!isNaN(arrivalDate.valueOf())) {
+        matchStage['arrival.date'] = { $gte: arrivalDate };
+    }
+    console.log(matchStage);
+
+    const railRoutes = await RailRoute.aggregate([
+        { $match: matchStage },
+        {
+            $lookup: {
+                from: 'stops',
+                localField: 'departure.stopId',
+                foreignField: '_id',
+                as: 'departure.stop',
+                pipeline: [
+                    {
+                        $lookup: {
+                            from: 'places',
+                            localField: 'placeId',
+                            foreignField: '_id',
+                            as: 'places'
+                        }
+                    },
+                    {
+                        $project: {
+                            '__v': false,
+                            '_id': true,
+                            'name': true,
+                            'place': { $first: '$places' }
+                        }
+                    }
+                ]
+            }
+        }
+        // {
+        //     $lookup: {
+        //         from: 'places',
+        //         localField: 'placeId',
+        //         foreignField: '_id',
+        //         as: 'place',
+        //         pipeline: [
+        //             { $match: matchStage },
+        //             {
+        //                 $project: {
+        //                     '_id': false,
+        //                     'name': true,
+        //                     'province': true
+        //                 }
+        //             }
+        //         ]
+        //     }
+        // },
+        // { $match: { 'place.0': { $exists: true } } },
+        // {
+        //     $project: {
+        //         '_id': false,
+        //         'name': true,
+        //         'place': true
+        //     }
+        // }
+    ])
+        .exec();
+
+    if (railRoutes.length === 0) {
+        res.status(404);
+        throw new Error(`Rail routes not found`);
+    }
+
+    // console.log(railRoutes);
+    
+    res.json(railRoutes);
 };
 
 const getRailRouteByDeparture = async (req, res) => {
