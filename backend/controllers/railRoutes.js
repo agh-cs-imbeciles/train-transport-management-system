@@ -1,6 +1,40 @@
 import * as mongoose from 'mongoose';
 import RailRoute from '../models/railRoute.js';
 
+const joinByIds = name => ({
+    $lookup: {
+        from: 'stops',
+        localField: `${name}.stopId`,
+        foreignField: '_id',
+        as: `${name}.stop`,
+        pipeline: [
+            {
+                $lookup: {
+                    from: 'places',
+                    localField: 'placeId',
+                    foreignField: '_id',
+                    as: 'places',
+                    pipeline: [
+                        {
+                            $project: {
+                                '_id': true,
+                                'name': true,
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                $project: {
+                    '_id': true,
+                    'name': true,
+                    'place': { $first: '$places' }
+                }
+            }
+        ]
+    }
+});
+
 const insertRailRoute = async (req, res) => {
     const body = req.body;
 
@@ -72,42 +106,6 @@ const getRailRouteByDate = async (req, res) => {
     }
     else if (!isNaN(arrivalDate.valueOf())) {
         matchStage['arrival.date'] = { $lte: arrivalDate };
-    }
-    
-    function joinByIds(name) {
-        return {
-            $lookup: {
-                from: 'stops',
-                localField: `${name}.stopId`,
-                foreignField: '_id',
-                as: `${name}.stop`,
-                pipeline: [
-                    {
-                        $lookup: {
-                            from: 'places',
-                            localField: 'placeId',
-                            foreignField: '_id',
-                            as: 'places',
-                            pipeline: [
-                                {
-                                    $project: {
-                                        '_id': true,
-                                        'name': true,
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        $project: {
-                            '_id': true,
-                            'name': true,
-                            'place': { $first: '$places' }
-                        }
-                    }
-                ]
-            }
-        }
     }
 
     const railRoutes = await RailRoute.aggregate([
