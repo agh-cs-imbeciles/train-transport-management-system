@@ -83,11 +83,31 @@ const getRailRouteById = async (req, res) => {
 
 const getRailRouteByDate = async (req, res) => {
     const departureDateString = req.body.departureDate,
-          arrivalDateString = req.body.arrivalDate;
+          arrivalDateString = req.body.arrivalDate,
+          departureStopId = req.body.departureStopId,
+          arrivalStopId = req.body.arrivalStopId;
     console.log(req.body);
     if (typeof departureDateString === 'undefined' && typeof arrivalDateString === 'undefined') {
         res.status(400);
         throw new Error('Departure and arrival dates are both undefined (unsent)');
+    }
+    if (typeof departureStopId === 'undefined') {
+        res.status(400);
+        throw new Error('Departure stop ID is undefined (unsent)');
+    }
+    if (departureStopId.length !== 24) {
+        res.status(400);
+        const lengthMessage = departureStopId.length < 24 ? 'short' : 'long';
+        throw new Error(`Departure stop ID '${departureStopId}' is too ${lengthMessage} (24 characters)`);
+    }
+    if (typeof arrivalStopId === 'undefined') {
+        res.status(400);
+        throw new Error('Arrival stop ID is undefined (unsent)');
+    }
+    if (arrivalStopId.length !== 24) {
+        res.status(400);
+        const lengthMessage = arrivalStopId.length < 24 ? 'short' : 'long';
+        throw new Error(`Arrival stop ID '${arrivalStopId}' is too ${lengthMessage} (24 characters)`);
     }
 
     const departureDate = new Date(departureDateString),
@@ -107,6 +127,24 @@ const getRailRouteByDate = async (req, res) => {
     else if (!isNaN(arrivalDate.valueOf())) {
         matchStage['arrival.date'] = { $lte: arrivalDate };
     }
+
+    const departureId = new mongoose.Types.ObjectId(departureStopId),
+          arrivalId = new mongoose.Types.ObjectId(arrivalStopId);
+    matchStage.$and = [
+        {
+            $or: [
+                { 'departure.stopId': departureId },
+                { 'stops.stopId': departureId }
+            ]
+        },
+        {
+            $or: [
+                { 'arrival.stopId': arrivalId },
+                { 'arrival.stopId': arrivalId }
+            ]
+        }
+    ];
+    // matchStage['arrival.stopId'] = new mongoose.Types.ObjectId(arrivalStopId);
 
     const railRoutes = await RailRoute.aggregate([
         { $match: matchStage },
