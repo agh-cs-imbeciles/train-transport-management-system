@@ -15,8 +15,8 @@ The train transport management system, which provides basic rail routes listing 
 - `ExpressJS`
 - `MongoDB`
 
-
-# Backend
+Documentation:
+## Backend
 
 `Express` backend application
 
@@ -62,8 +62,6 @@ The train transport management system, which provides basic rail routes listing 
             - [Insert a new rail route](#insert-a-new-rail-stop)
             - [Get a rail route by its ID](#get-a-rail-route-by-its-id)
             - [Get all rail routes by departure or arrival date and stop IDs](#get-all-rail-routes-by-departure-or-arrival-date-and-stop-ids)
-            - []()
-            - []()
         6. [Reservations](#reservations)
             - [Insert a new Reservation](#insert-a-new-train)
             - [Get a reservation by its ID](#get-a-train-by-its-id)
@@ -99,7 +97,7 @@ Contains __X__ collections.
 #### Users collection
 Defines users of the application, clients and staff but without checking their roles.
 
-- Source code: [user.js](./models/user.js)
+- Source code: [user.js](./backend/models/user.js)
 - Source code preview:  
     `UserSchema`
     ```js
@@ -177,7 +175,7 @@ Defines users of the application, clients and staff but without checking their r
 #### Places collection
 Defines places - cities, towns and villages.
 
-- Source code: [place.js](./models/place.js)
+- Source code: [place.js](./backend/models/place.js)
 - Source code preview:  
     `PlaceSchema`
     ```js
@@ -202,7 +200,7 @@ Defines places - cities, towns and villages.
 #### Stops collection
 Defines stops, contains `placeId`, so that it's combined with `Place` collection.
 
-- Source code: [stops.js](./models/stop.js)
+- Source code: [stops.js](./backend/models/stop.js)
 - Source code preview:  
     `StopSchema`
     ```js
@@ -224,7 +222,7 @@ Defines stops, contains `placeId`, so that it's combined with `Place` collection
 #### Trains collection
 Defines all currently active trains and their seats.
 
-- Source code: [train.js](./models/train.js)
+- Source code: [train.js](./backend/models/train.js)
 - Source code preview:  
     `TrainSchema`
     ```js
@@ -320,7 +318,7 @@ Defines all currently active trains and their seats.
 #### Rail routes collection
 Defines all currently on- or furthergoing rail routes.
 
-- Source code: [railRoute.js](./models/railRoute.js)
+- Source code: [railRoute.js](./backend/models/railRoute.js)
 - Source code preview:  
     `RailRouteSchema`
     ```js
@@ -451,7 +449,7 @@ Defines all currently on- or furthergoing rail routes.
 #### Reservations collection
 Defines all currently active reservations, grouped by `userId`.
 
-- Source code: [reservation.js](./models/reservation.js)
+- Source code: [reservation.js](./backend/models/reservation.js)
 - Source code preview:  
     `ReservationSchema`
     ```js
@@ -489,8 +487,8 @@ Defines all currently active reservations, grouped by `userId`.
 - Required body: [full user schema](#users)
 
 ##### _Source code_:
-- [sign-up controller](./controllers/signUp.js),
-- [sign-up route](./routes/signUp.js)
+- [sign-up controller](./backend/controllers/signUp.js),
+- [sign-up route](./backend/routes/signUp.js)
 
 #### Login
 - URL: `/login`,
@@ -503,15 +501,15 @@ Defines all currently active reservations, grouped by `userId`.
 ```
 
 ##### _Source code_:
-- [login controller](./controllers/login.js),
-- [login route](./routes/login.js)
+- [login controller](./backend/controllers/login.js),
+- [login route](./backend/routes/login.js)
 
 
 ### Places
 
 Source code
-- [places controller](./controllers/places.js),
-- [places route](./routes/places.js)
+- [places controller](./backend/controllers/places.js),
+- [places route](./backend/routes/places.js)
 
 #### Insert a new place
 - URL: `/places`,
@@ -549,8 +547,8 @@ Source code
 ### Stops
 
 Source code
-- [stops controller](./controllers/stops.js),
-- [stops route](./routes/stops.js)
+- [stops controller](./backend/controllers/stops.js),
+- [stops route](./backend/routes/stops.js)
 
 #### Insert a new stop
 - URL: `/rail/stops`,
@@ -594,8 +592,8 @@ _Example request_:
 ### Rail routes
 
 Source code
-- [rail routes controller](./controllers/railRoutes.js),
-- [rail routes route](./routes/railRoutes.js)
+- [rail routes controller](./backend/controllers/railRoutes.js),
+- [rail routes route](./backend/routes/railRoutes.js)
 
 #### Insert a new rail stop
 - URL: `/rail/routes`,
@@ -665,8 +663,8 @@ Source code
 ### Trains
 
 Source code
-- [trains controller](./controllers/train.js),
-- [trains route](./routes/trains.js)
+- [trains controller](./backend/controllers/train.js),
+- [trains route](./backend/routes/trains.js)
 
 #### Insert a new train
 - URL: `/trains`,
@@ -689,8 +687,8 @@ Source code
 ### Reservations
 
 Source code
-- [reservations controller](./controllers/reservation.js),
-- [reservation route](./routes/reservation.js)
+- [reservations controller](./backend/controllers/reservation.js),
+- [reservation route](./backend/routes/reservation.js)
 
 #### Insert a new reservation
 - URL: `/reservation`,
