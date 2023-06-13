@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-import { StopSchema } from './stop.js';
+import * as mongoose from 'mongoose';
 
 const RailRouteSchema = mongoose.Schema(
     {
@@ -13,9 +12,9 @@ const RailRouteSchema = mongoose.Schema(
             required: [true, 'Tickets cost map of the rail route is required']
         },
         departure: {
-            stop: {
-                type: StopSchema,
-                required: [true, 'Departure stop of the rail route is required']
+            stopId: {
+                type: mongoose.ObjectId,
+                required: [true, 'Departure stop ID of the rail route is required']
             },
             date: {
                 type: Date,
@@ -23,9 +22,9 @@ const RailRouteSchema = mongoose.Schema(
             }
         },
         arrival: {
-            stop: {
-                type: StopSchema,
-                required: [true, 'Arrival stop of the rail route is required']
+            stopId: {
+                type: mongoose.ObjectId,
+                required: [true, 'Arrival stop ID of the rail route is required']
             },
             date: {
                 type: Date,
@@ -33,9 +32,9 @@ const RailRouteSchema = mongoose.Schema(
             }
         },
         stops: [{
-            stop: {
-                type: StopSchema,
-                required: [true, 'Stop of the rail route is required']
+            stopId: {
+                type: mongoose.ObjectId,
+                required: [true, 'Stop ID of the rail route is required']
             },
             date: {
                 type: Date,
