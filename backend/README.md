@@ -47,7 +47,7 @@
         5. [Rail routes](#rail-routes)
             - [Insert a new rail route](#insert-a-new-rail-stop)
             - [Get a rail route by its ID](#get-a-rail-route-by-its-id)
-            - [Get all rail routes by departure or arrival date](#get-all-rail-routes-by-departure-or-arrival-date)
+            - [Get all rail routes by departure or arrival date and stop IDs](#get-all-rail-routes-by-departure-or-arrival-date-and-stop-ids)
             - []()
             - []()
         6. [Reservations](#reservations)
@@ -627,10 +627,24 @@ Source code
 - Returns: `RailRouteSchema`  
 `string :id` - 24-character id of stop
 
-#### Get all rail routes by departure or arrival date
+#### Get all rail routes by departure or arrival date and stop IDs
 - URL: `/rail/stops/all`,
 - Method: `GET`,
-- Required body:
+- Required body:  
+    `| string departureDate` - string date format of minimum departure date (_one of them required_)  
+    `| string arrivalDate` - string date format of minimum arrival date (_one of them required_)  
+    `string departureStopId` - 24-character long ID of the departure stop (_required_)  
+    `string arrivalStopId` - 24-character long ID of the arrival stop (_required_)  
+
+    _Example body_:
+    ```json
+    {
+        "departureDate": "2023-06-08T04:00+02:00",
+        "arrivalDate": "2023-06-20T04:00+02:00",
+        "departureStopId": "648508346ebe5f779de65375",
+        "arrivalStopId": "6485e3c012372c03b8747878"
+    }
+    ```
 - Returns: [extended `[RailRouteSchema]`](#example-of-the-extended-railrouteschema)  
 
 
