@@ -56,62 +56,50 @@ const getRailRouteByDate = async (req, res) => {
         throw new Error('Departure and arrival dates are both undefined (unsent)');
     }
 
-    // if (!departureDateString) {
-    //     res.status(400);
-    //     throw new Error('Departure date of the rail route is undefined (unsent)');
-    // }
-    // if (departureDateString !== 'string') {
-    //     res.status(400);
-    //     throw new Error('Departure date of the rail route is not string type');
-    // }
-    // if (!arrivalDateString) {
-    //     res.status(400);
-    //     throw new Error('Arrival date of the rail route is undefined (unsent)');
-    // }
-    // if (arrivalDateString !== 'string') {
-    //     res.status(400);
-    //     throw new Error('Arrival date of the rail route is not string type');
-    // }
-
     const departureDate = new Date(departureDateString),
           arrivalDate = new Date(arrivalDateString);
-    if (!isNaN(departureDate.valueOf())
-        && !isNaN(arrivalDate.valueOf())
-        && arrivalDate - departureDate <= 0
-    ) {
-        res.status(400);
-        throw new Error('Arrival date is older than departure one');
-    }
+    // if (!isNaN(departureDate.valueOf())
+    //     && !isNaN(arrivalDate.valueOf())
+    //     && arrivalDate - departureDate <= 0
+    // ) {
+    //     res.status(400);
+    //     throw new Error('Arrival date is older than departure one');
+    // }
 
     const matchStage = {};
     if (!isNaN(departureDate.valueOf())) {
         matchStage['departure.date'] = { $gte: departureDate };
     }
-    if (!isNaN(arrivalDate.valueOf())) {
-        matchStage['arrival.date'] = { $gte: arrivalDate };
+    else if (!isNaN(arrivalDate.valueOf())) {
+        matchStage['arrival.date'] = { $lte: arrivalDate };
     }
-    console.log(matchStage);
-
-    const railRoutes = await RailRoute.aggregate([
-        { $match: matchStage },
-        {
+    
+    function joinByIds(name) {
+        return {
             $lookup: {
                 from: 'stops',
-                localField: 'departure.stopId',
+                localField: `${name}.stopId`,
                 foreignField: '_id',
-                as: 'departure.stop',
+                as: `${name}.stop`,
                 pipeline: [
                     {
                         $lookup: {
                             from: 'places',
                             localField: 'placeId',
                             foreignField: '_id',
-                            as: 'places'
+                            as: 'places',
+                            pipeline: [
+                                {
+                                    $project: {
+                                        '_id': true,
+                                        'name': true,
+                                    }
+                                }
+                            ]
                         }
                     },
                     {
                         $project: {
-                            '__v': false,
                             '_id': true,
                             'name': true,
                             'place': { $first: '$places' }
@@ -120,32 +108,14 @@ const getRailRouteByDate = async (req, res) => {
                 ]
             }
         }
-        // {
-        //     $lookup: {
-        //         from: 'places',
-        //         localField: 'placeId',
-        //         foreignField: '_id',
-        //         as: 'place',
-        //         pipeline: [
-        //             { $match: matchStage },
-        //             {
-        //                 $project: {
-        //                     '_id': false,
-        //                     'name': true,
-        //                     'province': true
-        //                 }
-        //             }
-        //         ]
-        //     }
-        // },
-        // { $match: { 'place.0': { $exists: true } } },
-        // {
-        //     $project: {
-        //         '_id': false,
-        //         'name': true,
-        //         'place': true
-        //     }
-        // }
+    }
+
+    const railRoutes = await RailRoute.aggregate([
+        { $match: matchStage },
+        joinByIds('departure'),
+        joinByIds('arrival'),
+        joinByIds('stops'),
+        { $unset: [ '__v' ] }
     ])
         .exec();
 

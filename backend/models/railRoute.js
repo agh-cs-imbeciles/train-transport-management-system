@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import { StopSchema } from './stop.js';
 
 const RailRouteSchema = mongoose.Schema(
     {
