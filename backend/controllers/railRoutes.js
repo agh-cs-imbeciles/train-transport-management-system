@@ -26,11 +26,25 @@ const insertRailRoute = async (req, res) => {
 };
 
 const getRailRouteById = async (req, res) => {
-    const id = 0;
-    const matchingRoute = RailRoute.findById(id);
-    if (!matchingRoute) {
-        res
+    const railRouteId = req.params.id;
+
+    if (typeof railRouteId !== 'string') {
+        res.status(400);
+        throw new Error(`Rail route ID ${railRouteId} is not string type`);
     }
+    if (railRouteId.length !== 24) {
+        res.status(400);
+        const lengthMessage = railRouteId.length < 24 ? 'short' : 'long';
+        throw new Error(`Rail route ID is too ${lengthMessage} (24 characters)`);
+    }
+
+    const railRoute = await RailRoute.findById(railRouteId);
+    if (!railRoute) {
+        res.status(404);
+        throw new Error(`Rail route ${railRouteId} not found`);
+    }
+    
+    res.json(railRoute);
 };
 
 const getRailRouteByDate = async (req, res) => {

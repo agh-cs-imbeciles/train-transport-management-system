@@ -15,5 +15,9 @@ router.use((req, res, next) => {
 });
 
 router.put('/', asyncHandler(insertRailRoute));
+router.get('/id/:id', asyncHandler(getRailRouteById));
+router.get('/date/:date', asyncHandler(getRailRouteByDate));
+router.get('/departure/:id', asyncHandler(getRailRouteByDeparture));
+router.get('/arrival/:id', asyncHandler(getRailRouteByArrival));
 
 export default router;
