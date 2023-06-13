@@ -1,5 +1,7 @@
 import express from 'express';
 import chalk from 'chalk';
+import asyncHandler from 'express-async-handler';
+import { createTrain, getTrainById, getTrainSeats } from '../controllers/train.js';
 const router = express.Router();
 
 router.use((req, res, next) => {
@@ -7,14 +9,14 @@ router.use((req, res, next) => {
     next();
 });
 
-// Get all trains
-router.get('/', (req, res) => {
-    res.send('Success');
-});
+// Route to create a new train
+router.post('/', asyncHandler(createTrain));
 
-// Get train by id
-router.get('/:id', (req, res) => {
-    res.send('Success');
-});
+router.get('/:id/seats/:listOfSeatTypes', asyncHandler(getTrainSeats));
+
+// Route to get train information by ID
+router.get('/:id', asyncHandler(getTrainById));
+
+
 
 export default router;

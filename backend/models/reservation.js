@@ -3,11 +3,11 @@ import mongoose from 'mongoose';
 const ReservationSchema = mongoose.Schema(
     {
         userId: {
-            type: ObjectId,
+            type: mongoose.ObjectId,
             required: [true, 'User ID is required']
         },
-        trainRouteId: {
-            type: ObjectId,
+        railRouteId: {
+            type: mongoose.ObjectId,
             required: [true, 'Train route ID is required']
         },
         seats: [
@@ -24,5 +24,5 @@ const ReservationSchema = mongoose.Schema(
     }
 );
 
-export default mongoose.Model('Reservation', ReservationSchema);
+export default mongoose.model('Reservation', ReservationSchema);
 export { ReservationSchema };
