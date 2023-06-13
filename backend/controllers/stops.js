@@ -55,7 +55,7 @@ const getStopByName = async (req, res) => {
     }
 
     const stop = await Stop.findOne({
-        name: { $regex: new RegExp(`.*${stopName}.*`) }
+        name: { $regex: new RegExp(`.*${stopName}.*`, 'i') }
     });
     if (!stop) {
         res.status(404);
@@ -70,15 +70,15 @@ const getStopsByPlace = async (req, res) => {
     
     if (typeof placeName === 'undefined' && typeof provinceName === 'undefined') {
         res.status(400);
-        throw new Error(`Place and province names are both undefined`);
+        throw new Error('Place and province names are both undefined (unsent)');
     }
 
     const matchStage = {};
     if (typeof placeName === 'string') {
-        matchStage.name = { $regex: new RegExp(`.*${placeName}.*`) };
+        matchStage.name = { $regex: new RegExp(`.*${placeName}.*`, 'i') };
     }
     if (typeof provinceName === 'string') {
-        matchStage.province = { $regex: new RegExp(`.*${provinceName}.*`) };
+        matchStage.province = { $regex: new RegExp(`.*${provinceName}.*`, 'i') };
     }
 
     const stops = await Stop.aggregate([

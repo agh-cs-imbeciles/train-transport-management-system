@@ -57,7 +57,7 @@ const getPlaceByName = async (req, res) => {
     }
 
     const place = await Place.findOne({
-        name: { $regex: new RegExp(`.*${placeName}.*`) }
+        name: { $regex: new RegExp(`.*${placeName}.*`, 'i') }
     });
     if (!place) {
         res.status(404);
@@ -76,7 +76,7 @@ const getPlacesByProvince = async (req, res) => {
     }
 
     const places = await Place.find({
-        province: { $regex: new RegExp(`.*${provinceName}.*`) }
+        province: { $regex: new RegExp(`.*${provinceName}.*`, 'i') }
     })
         .exec();
     if (places.length === 0) {
