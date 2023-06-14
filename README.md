@@ -35,7 +35,7 @@ Documentation:
         2. [Places](#places-collection)
         3. [Stops](#stops-collection)
         4. [Trains](#trains-collection)
-        5. [Rail routes]()
+        5. [Rail routes](#rail-routes-collection)
         6. [Reservations](#reservations-collection)
 3. [Backend application](#backend-application)
     1. [API endpoints](#api-endpoints)
@@ -65,6 +65,7 @@ Documentation:
         6. [Reservations](#reservations)
             - [Insert a new Reservation](#insert-a-new-train)
             - [Get a reservation by its ID](#get-a-train-by-its-id)
+            - [Get all reservations by user ID](#get-all-reservations-by-user-id)
 4. [Frontend application](#frontend-application)
     1. [Components](#components)
         1. [Base](#base)
@@ -715,6 +716,14 @@ Source code
 - Method: `GET`,
 - Required body: none
 - Returns: `ReservationSchema`  
+`string :id` - 24-character id of reservation
+
+#### Get all reservations by user ID
+- URL: `/reservation/user/:id`,
+- Method: `GET`,
+- Required body: none
+- Returns: `ReservationSchema`  
+`string :id` - 24-character id of user
 
 
 
