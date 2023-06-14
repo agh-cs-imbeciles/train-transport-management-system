@@ -656,7 +656,7 @@ Source code
 
 #### Get all rail routes by departure or arrival date and stop IDs
 - URL: `/rail/routes/query`,
-- Method: `GET`,
+- Method: `POST`,
 - Required body:  
     `| string departureDate` - string date format of minimum departure date (_one of them required_)  
     `| string arrivalDate` - string date format of minimum arrival date (_one of them required_)  
@@ -713,48 +713,41 @@ Source code
 #### Get a reservation by its ID
 - URL: `/reservation/:id`,
 - Method: `GET`,
-- Required body:
-    ```json
-    {
-    "departureDate": "2023-06-13T04:00+02:00",
-    "arrivalDate": "2023-06-20T04:00+02:00"
-    }
-    ```
+- Required body: none
 - Returns: `ReservationSchema`  
+
+
+
+
 ## Frontend Application
 We based our solution on `React` library and its functional components.
+
 ### Base
 Responsible for displaying navigation bar and path protection.
+![Screenshot](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/8d84aa5b-788f-4657-a3e6-2be7e93dc9a0)
+![Screenshot](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/04860066-7a64-46c3-85c1-84a8e2b8c503)
 
-![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/8d84aa5b-788f-4657-a3e6-2be7e93dc9a0)
-![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/04860066-7a64-46c3-85c1-84a8e2b8c503)
 ### login_register
 This folder contains components that allow user to log in or register to application.
 #### Login
-![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/2a7f0f67-7f79-4c71-94af-2be7390b8155)
+![Screenshot](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/2a7f0f67-7f79-4c71-94af-2be7390b8155)
 #### Register
-![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/7a55563c-64bd-4494-9cdb-a18c52da1eec)
+![Screenshot](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/7a55563c-64bd-4494-9cdb-a18c52da1eec)
+
 ### cockpit
 Folder contains components that display basic information about reservations, allows to search for new connections.
 #### Cockpit Component
-![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/e048d6ac-558b-4cba-ab56-1137d326fca5)
+![Screenshot](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/e048d6ac-558b-4cba-ab56-1137d326fca5)
 #### Cockpit Views
 ##### ListElement
 Displays basic data about connection. After being clicked, allows user to book seats certain connection.
-
-![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/1bbbd676-82ef-45e0-8735-526a2a35746c)
+![Screenshot](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/1bbbd676-82ef-45e0-8735-526a2a35746c)
 ##### ReservationList
 Displays extended data about already booked connenctions.
-![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/6d142793-a38c-44f5-ada6-4df49cfdabfa)
+![Screenshot](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/6d142793-a38c-44f5-ada6-4df49cfdabfa)
 ##### SearchPanel
 Allows user to find new connections. User is able to filter connections by arrival/departure time,start/stop places.
-![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/07c41a51-7218-4c63-9590-59ebe457cb8f)
+![Screenshot](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/07c41a51-7218-4c63-9590-59ebe457cb8f)
 #### ReservationPanel
 Allows user to choose how many places he would like to book. Displays additional data about connection.
-![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/14132752-052b-42c1-bcd9-8ce64705777d)
-
-
-
-
-
-
+![Screenshot](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/14132752-052b-42c1-bcd9-8ce64705777d)
