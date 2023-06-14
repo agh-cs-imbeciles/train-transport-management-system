@@ -3,6 +3,7 @@ import { ListItem } from '@mui/material';
 import { Container } from "react-bootstrap";
 import styles from "./reservation_list.module.scss";
 import TrainIcon from '@mui/icons-material/Train';
+
 export default function ReservationList(props: any){
     const elements: Array<any/*Do zmienienia*/> = props.elements;
     const list_elements: Array<JSX.Element> = [];

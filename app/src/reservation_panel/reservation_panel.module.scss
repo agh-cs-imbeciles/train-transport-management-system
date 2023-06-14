@@ -1,0 +1,109 @@
+.whole{
+    background-color: grey;
+    border-radius: 20px;
+    display: flex;
+    flex: {
+        direction: column;
+    }
+}
+.time_place{
+    display: grid;
+    grid: {
+        template: {
+            columns: auto auto
+        }
+    };
+}
+.train_data{
+    margin: {
+        top:10px;
+    }
+    background-color: white;
+
+    border-radius: 20px;
+    display:flex;
+    flex: {
+        direction: row;
+    }
+    .icon{
+        width: 10% !important;
+        height: 10% !important;
+        align-self: center;
+    }
+    border: {
+        radius: 30px;
+        color:black;
+        width: 5px;
+        style: dashed;
+    }
+}
+.places_selection{
+    display: grid;
+    width: fit-content;
+    align-items: center;
+    margin: {
+        left: 0;
+        right: 0;
+    }
+    grid: {
+        template: {
+            columns: auto auto auto;
+        }
+        column:{
+            gap: 20px;
+        }
+        
+    }
+}
+
+.list_block{
+    margin-top: 30px;
+}
+
+.list{
+    height: 250px;
+    max-width: 300px;
+    margin: {
+        left: 0;
+        right: 0;
+        top: 0px;
+        bottom:30px;
+    }
+    padding: 20px;
+    overflow-y:scroll;
+    background: {
+        color:white;
+    };
+    border: {
+        radius: 30px;
+        color:black;
+        width: 5px;
+        style: dashed;
+    }
+}
+
+.position{
+    display: grid;
+    padding: 5px;
+    margin: 10px;
+    border-radius: 20px;
+    background: {
+        color: grey;
+    };
+    grid: {
+        template: {
+            columns: 80% 20%;
+        }
+    }
+}
+.icon_button{
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    align-self: center;
+
+}
+.icon{
+    width: fit-content;
+    height: fit-content;
+}

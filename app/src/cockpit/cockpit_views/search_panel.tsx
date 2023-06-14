@@ -10,16 +10,22 @@ import { URLPath } from "../../global_values";
 export default function SearchPanel(){
     const [firstDate, setFirstDate] = useState<dayjs.Dayjs>(dayjs().add(1,"minute"));
     const [secondDate, setSecondDate] = useState<dayjs.Dayjs>(dayjs().add(1,"day").add(1,"minute"));
-    const [firstPlace, setFirstPlace] = useState<string>();
-    const [secondPlace, setSecondPlace] = useState<string>();
+    const [firstPlace, setFirstPlace] = useState<any>();
+    const [secondPlace, setSecondPlace] = useState<any>();
     const [places, setPlaces] = useState<Array<any>>([]);
-    const [ends, setEnds] = useState<Array<any>>([]);
+    const [connectionsElements, setConnectionsElements] = useState<Array<any>>([]);
+
+    const disable:boolean =
+     firstPlace==null ||
+     secondPlace==null ||
+     firstDate>secondDate;
     
     useEffect(() => {
         fetch(URLPath.placesAll)
           .then(res => res.json())
           .then(data => {setPlaces(data.map((x:any)=>
             {
+                console.log(x);
                 const container = {
                     label:x.name,
                     _id:x._id
@@ -28,9 +34,29 @@ export default function SearchPanel(){
             }
             ))});
       }, []);
-
-    async function getAllEnds(place:string){
-
+    
+    async function getConnections(){
+        if(firstPlace===undefined || secondPlace===undefined){
+            return;
+        }
+        const data = {
+            "departureDate": firstDate,
+            "arrivalDate": secondDate,
+            "departureStopId": firstPlace._id,
+            "arrivalStopId": secondPlace._id
+        }
+        const response = await fetch(URLPath.routesAll,
+            {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {"Content-Type": "application/json;charset=utf-8"}
+            });
+        const connections = await response.json();
+        const conList = [];
+        for(let c in connections){
+            conList.push(<ListElement type="express" from={firstPlace} to={secondPlace} departure={c.departure.date} arrival={c.arrival.date}/>);
+        }
+        setConnectionsElements(conList);
     }
 
     
@@ -49,7 +75,10 @@ export default function SearchPanel(){
                             id="combo-box-demo"
                             options={places}
                             renderInput={(params) => <TextField {...params} label="Stacja początkowa" />}
-                            onChange={(event,input)=>{console.log(input);setFirstPlace(input);getAllEnds(input)}}
+                            onChange={(event,input)=>{
+                                console.log(input);
+                                setFirstPlace(input)
+                            }}
                         />
                     </Container>
                     <Container className={styles.single}>
@@ -57,19 +86,20 @@ export default function SearchPanel(){
                         <Autocomplete
                             disablePortal
                             id="combo-box-demo"
-                            options={ends}
+                            options={places}
                             renderInput={(params) => <TextField {...params} label="Stacja końcowa" />}
                             onChange={(event,input)=>setSecondPlace(input)}
                         />
                     </Container>
                 </Container>
-                <Button disabled={secondDate<firstDate ? true:false} className={styles.look_for}>Szukaj</Button>
+                <Button disabled={disable} className={styles.look_for} onClick={getConnections}>Szukaj</Button>
             </Form>
             
             <Container className={styles.list}>
                 <p></p>
                 <Container className={styles.list_items}>
-                    <ListElement type="express" from="Kraków" to="Warszawa" departure="2023" arrival="2024"/>
+                    {connectionsElements}
+                    <ListElement type="express" from="Kraków" to="Warszawa" departure="2023.12.01" arrival="2023.12.01"/>
                 </Container>
             </Container>
         </Container>
