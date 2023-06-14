@@ -47,7 +47,7 @@ export default function SearchPanel(){
         }
         const response = await fetch(URLPath.routesAll,
             {
-                method: 'PUT',
+                method: 'GET',
                 body: JSON.stringify(data),
                 headers: {"Content-Type": "application/json;charset=utf-8"}
             });

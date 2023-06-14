@@ -6,6 +6,7 @@ import TrainIcon from '@mui/icons-material/Train';
 
 export default function ReservationList(props: any){
     const elements: Array<any/*Do zmienienia*/> = props.elements;
+    const current:boolean = props.current
     const list_elements: Array<JSX.Element> = [];
     for(let single in elements){
         list_elements.push(

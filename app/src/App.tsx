@@ -27,7 +27,7 @@ function App() {
               <Route path="cockpit" element={<Cockpit />} >
                 <Route path="search" element={<SearchPanel/>} />
                 <Route path="reservations" element={<Reservations/>} />
-                <Route path="history" element={<ReservationsHistory/>} />
+                <Route path="history" element={<Reservations/>} />
             </Route>
           </Route>
         </Routes>
