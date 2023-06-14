@@ -11,6 +11,7 @@ export default function Reservations(props:any){
           .then(res => res.json())
           .then(data => {setElements(data);console.log(data,"das")});
       }, []);
+      console.log(elements);
     if(current){
 
     }

@@ -9,17 +9,17 @@ import { URLPath } from "../../global_values";
 
 export default function SearchPanel(){
     const [firstDate, setFirstDate] = useState<dayjs.Dayjs>(dayjs().add(1,"minute"));
-    const [secondDate, setSecondDate] = useState<dayjs.Dayjs>(dayjs().add(1,"day").add(1,"minute"));
+
     const [firstPlace, setFirstPlace] = useState<any>();
     const [secondPlace, setSecondPlace] = useState<any>();
     const [text, setText] = useState<string>("");
     const [places, setPlaces] = useState<Array<any>>([]);
     const [connectionsElements, setConnectionsElements] = useState<Array<JSX.Element>>([]);
-
+    const [type,setType] = useState<string>("start");
     const disable:boolean =
      firstPlace==null ||
      secondPlace==null ||
-     firstDate>secondDate;
+     firstDate==null
     
     useEffect(() => {
         fetch(URLPath.placesAll)
@@ -40,12 +40,22 @@ export default function SearchPanel(){
         if(firstPlace===undefined || secondPlace===undefined){
             return;
         }
-        const data = {
-            "departureDate": firstDate,
-            "arrivalDate": secondDate,
-            "departureStopId": firstPlace._id,
-            "arrivalStopId": secondPlace._id
+        var data;
+        if(type=="start"){
+             data = {
+                "departureDate": firstDate,
+                "departureStopId": firstPlace._id,
+                "arrivalStopId": secondPlace._id
+            }
         }
+        else{
+             data = {
+                "arrivalDate": firstDate,
+                "departureStopId": firstPlace._id,
+                "arrivalStopId": secondPlace._id
+            }
+        }
+        
         console.log(JSON.stringify(data))
         const response = await fetch(URLPath.routesAll,
             {
@@ -69,15 +79,23 @@ export default function SearchPanel(){
         }
         setConnectionsElements(conList);
     }
-
+    function changeRadio(event:any){
+        setType(event.target.value);
+    }
     
     return(
         <Container className={styles.whole}>
             <Form className={styles.search_tab}>
                 <Container className={styles.dates}>
-                    <MobileDateTimePicker defaultValue={firstDate} minDateTime={dayjs()} onChange={(val:any)=>setFirstDate(val)} className={styles.picker} label="Data początkowa"/>
-                    <MobileDateTimePicker defaultValue={secondDate} minDateTime={firstDate} onChange={(val:any)=>setSecondDate(val)} className={styles.picker} label="Data końcowa"/>
+                    <MobileDateTimePicker defaultValue={firstDate} minDateTime={dayjs()} onChange={(val:any)=>setFirstDate(val)} className={styles.picker} label="Data odjazdu"/>
+                    <Container onChange={changeRadio}>
+                    <input defaultChecked type="radio" id="start" name="sol" value="start"/>
+                    <label  htmlFor="start">Data odjazdu</label><br/>
+                    <input type="radio" id="end" name="sol" value="end"/>
+                    <label htmlFor="end">Data przyjazdu</label><br/>
+                    </Container>
                 </Container>
+                
                 <Container className={styles.from_to}>
                     <Container className={styles.single}>
                         <Form.Label>Wybierz stację początkową</Form.Label>

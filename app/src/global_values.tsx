@@ -6,5 +6,7 @@ export namespace URLPath{
     export const routesAll:string = "http://127.0.0.1:3000/rail/routes/query";
     export const routesId:string = "http://127.0.0.1:3000/rail/routes/id";
     export const reservations:string = "http://127.0.0.1:3000/reservation/userid";
+    export const trains:string = "http://127.0.0.1:3000/trains";
+    export const stopsId:string = "http://127.0.0.1:3000/rail/stops/id";
 }   
 export {};

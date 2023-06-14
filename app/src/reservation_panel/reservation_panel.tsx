@@ -5,22 +5,31 @@ import styles from "./reservation_panel.module.scss"
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import TrainIcon from '@mui/icons-material/Train';
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useParams } from "react-router-dom";
 import { URLPath } from "../global_values";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ReservationPanel(props: any){
     const location = useLocation();
+    const params = useParams();
+    const [dataFirst,setDataFirst] = useState();
+    const [trainFValues,setTrainFValues] = useState();
     const trainData = props.trainData;
     const placesPositions: Array<JSX.Element> = [];
     if(localStorage.getItem("login_id")==null){
         return <Navigate to="/login" />
     }
-
+    console.log(params)
     useEffect(() => {
-        fetch(URLPath.placesAll)
+        fetch(URLPath.routesId+"/"+params.id)
           .then(res => res.json())
-          .then(data => {});
+          .then(data => {
+            console.log(data);
+            setDataFirst(data);
+            return fetch(URLPath.trains+"/"+data.trainId);
+        })
+        .then(res => res.json())
+        .then(data =>{setTrainFValues(data);console.log(trainFValues,"ads")})
       }, []);
 
     for(let i=0; i<10;i++){
