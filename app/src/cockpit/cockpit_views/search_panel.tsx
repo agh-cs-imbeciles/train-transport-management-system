@@ -12,8 +12,9 @@ export default function SearchPanel(){
     const [secondDate, setSecondDate] = useState<dayjs.Dayjs>(dayjs().add(1,"day").add(1,"minute"));
     const [firstPlace, setFirstPlace] = useState<any>();
     const [secondPlace, setSecondPlace] = useState<any>();
+    const [text, setText] = useState<string>("");
     const [places, setPlaces] = useState<Array<any>>([]);
-    const [connectionsElements, setConnectionsElements] = useState<Array<any>>([]);
+    const [connectionsElements, setConnectionsElements] = useState<Array<JSX.Element>>([]);
 
     const disable:boolean =
      firstPlace==null ||
@@ -52,10 +53,19 @@ export default function SearchPanel(){
                 body: JSON.stringify(data),
                 headers: {"Content-Type": "application/json;charset=utf-8"}
             });
+        if(!response.ok){
+            setText("Nie znaleziono pociągów");
+        }
+        else{
+            setText("");
+        }
         const connections = await response.json();
-        const conList = [];
-        for(let c in connections){
-            conList.push(<ListElement type="express" from={firstPlace} to={secondPlace} departure={c.departure.date} arrival={c.arrival.date}/>);
+        const conList:Array<JSX.Element> = [];
+        console.log(connections);
+        for(let c of connections){
+            console.log(c);
+            console.log(secondPlace);
+            conList.push(<ListElement type="express" id={c._id} from={firstPlace.label} to={secondPlace.label} departure={c.departure.date} arrival={c.arrival.date}/>);
         }
         setConnectionsElements(conList);
     }
@@ -97,10 +107,9 @@ export default function SearchPanel(){
             </Form>
             
             <Container className={styles.list}>
-                <p></p>
+                <p>{text}</p>
                 <Container className={styles.list_items}>
                     {connectionsElements}
-                    <ListElement type="express" from="Kraków" to="Warszawa" departure="2023.12.01" arrival="2023.12.01"/>
                 </Container>
             </Container>
         </Container>
