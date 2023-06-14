@@ -15,8 +15,8 @@ The train transport management system, which provides basic rail routes listing 
 - `ExpressJS`
 - `MongoDB`
 
-
-# Backend
+Documentation:
+## Backend
 
 `Express` backend application
 
@@ -62,11 +62,24 @@ The train transport management system, which provides basic rail routes listing 
             - [Insert a new rail route](#insert-a-new-rail-stop)
             - [Get a rail route by its ID](#get-a-rail-route-by-its-id)
             - [Get all rail routes by departure or arrival date and stop IDs](#get-all-rail-routes-by-departure-or-arrival-date-and-stop-ids)
-            - []()
-            - []()
         6. [Reservations](#reservations)
             - [Insert a new Reservation](#insert-a-new-train)
             - [Get a reservation by its ID](#get-a-train-by-its-id)
+4. [Frontend application](#frontend-application)
+    1. [Components](#components)
+        1. [Base](#base)
+        2. [login_register](#login-register)
+            1. [Login](#login)
+            2. [Register](#register)
+        3. [cockpit](#cockpit)
+            1. [Cockpit](#cockpit-component)
+            2. [cockpit_views](#cockpit-views)
+                1. [ListElement](#listelement)
+                2. [ReservationList](#reservationlist)
+                4. [Reservations](#reservations)
+                5. [SearchPanel](#searchpanel)   
+        4. [ReservationPanel](#reservationpanel)
+            
 
 
 
@@ -99,7 +112,7 @@ Contains __X__ collections.
 #### Users collection
 Defines users of the application, clients and staff but without checking their roles.
 
-- Source code: [user.js](./models/user.js)
+- Source code: [user.js](./backend/models/user.js)
 - Source code preview:  
     `UserSchema`
     ```js
@@ -177,7 +190,7 @@ Defines users of the application, clients and staff but without checking their r
 #### Places collection
 Defines places - cities, towns and villages.
 
-- Source code: [place.js](./models/place.js)
+- Source code: [place.js](./backend/models/place.js)
 - Source code preview:  
     `PlaceSchema`
     ```js
@@ -202,7 +215,7 @@ Defines places - cities, towns and villages.
 #### Stops collection
 Defines stops, contains `placeId`, so that it's combined with `Place` collection.
 
-- Source code: [stops.js](./models/stop.js)
+- Source code: [stops.js](./backend/models/stop.js)
 - Source code preview:  
     `StopSchema`
     ```js
@@ -224,7 +237,7 @@ Defines stops, contains `placeId`, so that it's combined with `Place` collection
 #### Trains collection
 Defines all currently active trains and their seats.
 
-- Source code: [train.js](./models/train.js)
+- Source code: [train.js](./backend/models/train.js)
 - Source code preview:  
     `TrainSchema`
     ```js
@@ -320,7 +333,7 @@ Defines all currently active trains and their seats.
 #### Rail routes collection
 Defines all currently on- or furthergoing rail routes.
 
-- Source code: [railRoute.js](./models/railRoute.js)
+- Source code: [railRoute.js](./backend/models/railRoute.js)
 - Source code preview:  
     `RailRouteSchema`
     ```js
@@ -451,7 +464,7 @@ Defines all currently on- or furthergoing rail routes.
 #### Reservations collection
 Defines all currently active reservations, grouped by `userId`.
 
-- Source code: [reservation.js](./models/reservation.js)
+- Source code: [reservation.js](./backend/models/reservation.js)
 - Source code preview:  
     `ReservationSchema`
     ```js
@@ -489,8 +502,8 @@ Defines all currently active reservations, grouped by `userId`.
 - Required body: [full user schema](#users)
 
 ##### _Source code_:
-- [sign-up controller](./controllers/signUp.js),
-- [sign-up route](./routes/signUp.js)
+- [sign-up controller](./backend/controllers/signUp.js),
+- [sign-up route](./backend/routes/signUp.js)
 
 #### Login
 - URL: `/login`,
@@ -503,15 +516,15 @@ Defines all currently active reservations, grouped by `userId`.
 ```
 
 ##### _Source code_:
-- [login controller](./controllers/login.js),
-- [login route](./routes/login.js)
+- [login controller](./backend/controllers/login.js),
+- [login route](./backend/routes/login.js)
 
 
 ### Places
 
 Source code
-- [places controller](./controllers/places.js),
-- [places route](./routes/places.js)
+- [places controller](./backend/controllers/places.js),
+- [places route](./backend/routes/places.js)
 
 #### Insert a new place
 - URL: `/places`,
@@ -549,8 +562,8 @@ Source code
 ### Stops
 
 Source code
-- [stops controller](./controllers/stops.js),
-- [stops route](./routes/stops.js)
+- [stops controller](./backend/controllers/stops.js),
+- [stops route](./backend/routes/stops.js)
 
 #### Insert a new stop
 - URL: `/rail/stops`,
@@ -594,8 +607,8 @@ _Example request_:
 ### Rail routes
 
 Source code
-- [rail routes controller](./controllers/railRoutes.js),
-- [rail routes route](./routes/railRoutes.js)
+- [rail routes controller](./backend/controllers/railRoutes.js),
+- [rail routes route](./backend/routes/railRoutes.js)
 
 #### Insert a new rail stop
 - URL: `/rail/routes`,
@@ -642,7 +655,7 @@ Source code
 `string :id` - 24-character id of stop
 
 #### Get all rail routes by departure or arrival date and stop IDs
-- URL: `/rail/stops/all`,
+- URL: `/rail/routes/query`,
 - Method: `GET`,
 - Required body:  
     `| string departureDate` - string date format of minimum departure date (_one of them required_)  
@@ -665,8 +678,8 @@ Source code
 ### Trains
 
 Source code
-- [trains controller](./controllers/train.js),
-- [trains route](./routes/trains.js)
+- [trains controller](./backend/controllers/train.js),
+- [trains route](./backend/routes/trains.js)
 
 #### Insert a new train
 - URL: `/trains`,
@@ -689,8 +702,8 @@ Source code
 ### Reservations
 
 Source code
-- [reservations controller](./controllers/reservation.js),
-- [reservation route](./routes/reservation.js)
+- [reservations controller](./backend/controllers/reservation.js),
+- [reservation route](./backend/routes/reservation.js)
 
 #### Insert a new reservation
 - URL: `/reservation`,
@@ -708,3 +721,40 @@ Source code
     }
     ```
 - Returns: `ReservationSchema`  
+## Frontend Application
+We based our solution on `React` library and its functional components.
+### Base
+Responsible for displaying navigation bar and path protection.
+
+![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/8d84aa5b-788f-4657-a3e6-2be7e93dc9a0)
+![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/04860066-7a64-46c3-85c1-84a8e2b8c503)
+### login_register
+This folder contains components that allow user to log in or register to application.
+#### Login
+![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/2a7f0f67-7f79-4c71-94af-2be7390b8155)
+#### Register
+![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/7a55563c-64bd-4494-9cdb-a18c52da1eec)
+### cockpit
+Folder contains components that display basic information about reservations, allows to search for new connections.
+#### Cockpit Component
+![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/e048d6ac-558b-4cba-ab56-1137d326fca5)
+#### Cockpit Views
+##### ListElement
+Displays basic data about connection. After being clicked, allows user to book seats certain connection.
+
+![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/1bbbd676-82ef-45e0-8735-526a2a35746c)
+##### ReservationList
+Displays extended data about already booked connenctions.
+![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/6d142793-a38c-44f5-ada6-4df49cfdabfa)
+##### SearchPanel
+Allows user to find new connections. User is able to filter connections by arrival/departure time,start/stop places.
+![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/07c41a51-7218-4c63-9590-59ebe457cb8f)
+#### ReservationPanel
+Allows user to choose how many places he would like to book. Displays additional data about connection.
+![obraz](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/14132752-052b-42c1-bcd9-8ce64705777d)
+
+
+
+
+
+

@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 import RailRoute from '../models/railRoute.js';
 
+// Helper function
 const joinByIds = name => ({
     $lookup: {
         from: 'stops',
@@ -16,10 +17,7 @@ const joinByIds = name => ({
                     as: 'places',
                     pipeline: [
                         {
-                            $project: {
-                                '_id': true,
-                                'name': true,
-                            }
+                            $unset: [ '__v' ]
                         }
                     ]
                 }
@@ -81,7 +79,7 @@ const getRailRouteById = async (req, res) => {
     res.json(railRoute);
 };
 
-const getRailRouteByDate = async (req, res) => {
+const getRailRouteQuery = async (req, res) => {
     const departureDateString = req.body.departureDate,
           arrivalDateString = req.body.arrivalDate,
           departureStopId = req.body.departureStopId,
@@ -134,17 +132,24 @@ const getRailRouteByDate = async (req, res) => {
         {
             $or: [
                 { 'departure.stopId': departureId },
-                { 'stops.stopId': departureId }
+                { 
+                    'stops': {
+                        $elemMatch: { 'stopId': departureId } 
+                    }
+                }
             ]
         },
         {
             $or: [
                 { 'arrival.stopId': arrivalId },
-                { 'arrival.stopId': arrivalId }
+                { 
+                    'stops': {
+                        $elemMatch: { 'stopId': arrivalId } 
+                    }
+                }
             ]
         }
     ];
-    // matchStage['arrival.stopId'] = new mongoose.Types.ObjectId(arrivalStopId);
 
     const railRoutes = await RailRoute.aggregate([
         { $match: matchStage },
@@ -176,7 +181,7 @@ const getRailRouteByArrival = async (req, res) => {
 export {
     insertRailRoute,
     getRailRouteById,
-    getRailRouteByDate,
+    getRailRouteQuery,
     getRailRouteByDeparture,
     getRailRouteByArrival
 };
