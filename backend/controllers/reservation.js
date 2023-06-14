@@ -42,34 +42,34 @@ const getReservationById = async (req, res) => {
             throw new Error(`Reservation of ID ${reservationId} not found`);
         }
 
-        console.log(chalk.cyan.bold('[Get Reservation by user ID]') + ` Reservation found: ${reservation._id}`);
+        console.log(chalk.cyan.bold('[Get reservation by user ID]') + ` Reservation found: ${reservation._id}`);
   
         res.json(reservation);
     } catch (error) {
-        console.log(chalk.red.bold('[Get Reservation by ID] Error:'), error);
+        console.log(chalk.red.bold('[Get reservation by ID] Error:'), error);
         res.status(400).json({ error: error.message });
     }
 };
 
-const getReservationByUserId = async (req, res) => {
+const getReservationsByUserId = async (req, res) => {
     try {
         const userId = new mongoose.Types.ObjectId(req.params.id);
 
         // Find the reservation by user ID
-        const reservation = await Reservation.findOne({ userId });
+        const reservations = await Reservation.find({ userId });
 
-        if (!reservation) {
-            throw new Error(`Reservation of user ID ${userId} not found`);
+        if (reservations.length === 0) {
+            throw new Error(`Reservations of user ID ${userId} not found`);
         }
 
-        console.log(chalk.cyan.bold('[Get Reservation by ID]') + ` Reservation found: ${reservation._id}`);
+        console.log(chalk.cyan.bold('[Get reservations by user ID]') + ` Reservations found`);
 
-        res.json(reservation);
+        res.json(reservations);
     }
     catch (error) {
-        console.log(chalk.red.bold('[Get Reservation by ID] Error:'), error);
+        console.log(chalk.red.bold('[Get reservations by user ID] Error:'), error);
         res.status(400).json({ error: error.message });
     }
 };
 
-export { createReservation, getReservationById, getReservationByUserId };
+export { createReservation, getReservationById, getReservationsByUserId };
