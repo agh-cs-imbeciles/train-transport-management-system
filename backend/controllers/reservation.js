@@ -72,4 +72,8 @@ const getReservationsByUserId = async (req, res) => {
     }
 };
 
-export { createReservation, getReservationById, getReservationsByUserId };
+export {
+    createReservation,
+    getReservationById,
+    getReservationsByUserId
+};

@@ -1,5 +1,7 @@
 import * as mongoose from 'mongoose';
 import RailRoute from '../models/railRoute.js';
+import Reservation from '../models/reservation.js';
+import Train from '../models/train.js';
 
 // Helper function
 const joinByIds = name => ({
@@ -170,6 +172,46 @@ const getRailRouteQuery = async (req, res) => {
     res.json(railRoutes);
 };
 
+const getVacantSeatsById = async (req, res) => {
+    const railRouteId = new mongoose.Types.ObjectId(req.params.id);
+
+    // Get the reserved seats by rail route ID
+    const reservedSeatsObject = await Reservation.aggregate([
+        { $match: { railRouteId } },
+        {
+            $project: {
+                '_id': false,
+                'seats': { $concatArrays: '$seats' }
+            }
+        },
+    ]);
+    const reservedSeats = reservedSeatsObject[0].seats;
+    const reservedSeatIds = reservedSeats.map(seat => seat.seatId);
+    console.log(reservedSeatIds);
+
+    // Get the train ID of the rail route
+    const railRoute = await RailRoute.findById(railRouteId);
+    const trainId = railRoute.trainId;
+
+    // Find the vacant seats by rail route ID
+    const vacantSeatsObject = await Train.aggregate([
+        { $match: { '_id': trainId } },
+        { $project: { 'seats': true } }
+    ]);
+    // console.log(vacantSeatsObject);
+    const vacantSeatsMap = vacantSeatsObject[0].seats;
+    // console.log(vacantSeatsMap)
+    reservedSeatIds.forEach(id => delete vacantSeatsMap[id]);
+
+    // if (vacantSeatsMap === 0) {
+    //     console.log(chalk.cyan.bold('[Get vacant seats by rail route ID]') + ` Vacant seats not found`);
+    // }
+
+    // console.log(chalk.cyan.bold('[Get vacant seats by rail route ID]') + ` Vacant seats found`);
+
+    res.json(vacantSeatsMap);
+};
+
 const getRailRouteByDeparture = async (req, res) => {
 
 };
@@ -182,6 +224,7 @@ export {
     insertRailRoute,
     getRailRouteById,
     getRailRouteQuery,
+    getVacantSeatsById,
     getRailRouteByDeparture,
     getRailRouteByArrival
 };

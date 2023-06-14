@@ -1,7 +1,10 @@
 import express from 'express';
 import chalk from 'chalk';
 import asyncHandler from 'express-async-handler';
-import { createReservation, getReservationById, getReservationsByUserId } from '../controllers/reservation.js';
+import {
+    createReservation,
+    getReservationById,
+    getReservationsByUserId } from '../controllers/reservation.js';
 const router = express.Router();
 
 router.use((req, res, next) => {
