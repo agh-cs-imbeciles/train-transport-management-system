@@ -45,9 +45,10 @@ export default function SearchPanel(){
             "departureStopId": firstPlace._id,
             "arrivalStopId": secondPlace._id
         }
+        console.log(JSON.stringify(data))
         const response = await fetch(URLPath.routesAll,
             {
-                method: 'GET',
+                method: 'POST',
                 body: JSON.stringify(data),
                 headers: {"Content-Type": "application/json;charset=utf-8"}
             });

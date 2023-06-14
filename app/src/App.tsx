@@ -9,7 +9,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Cockpit from './cockpit/cockpit'
 import SearchPanel from './cockpit/cockpit_views/search_panel';
 import Reservations from './cockpit/cockpit_views/reservations';
-import ReservationsHistory from './cockpit/cockpit_views/reservations_history';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import "dayjs/locale/pl"
