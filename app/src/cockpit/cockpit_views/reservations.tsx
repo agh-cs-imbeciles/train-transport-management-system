@@ -9,7 +9,7 @@ export default function Reservations(props:any){
     useEffect(() => {
         fetch(URLPath.reservations+"/"+localStorage.getItem("login_id"))
           .then(res => res.json())
-          .then(data => {setElements(data);console.log(data)});
+          .then(data => {setElements(data);console.log(data,"das")});
       }, []);
     if(current){
 

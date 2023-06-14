@@ -24,7 +24,12 @@ export default function ListElement(props: any){
     }
     async function loadReservation() {
         const val = "/connection/"+id;
-        navigate(val);
+        navigate(val,{state:{
+            from:from,
+            to:to,
+            arrival:arrival,
+            departure:departure
+        }});
     }
 
     return(

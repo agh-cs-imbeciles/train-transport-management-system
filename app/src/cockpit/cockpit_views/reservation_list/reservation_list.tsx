@@ -3,12 +3,27 @@ import { ListItem } from '@mui/material';
 import { Container } from "react-bootstrap";
 import styles from "./reservation_list.module.scss";
 import TrainIcon from '@mui/icons-material/Train';
+import { URLPath } from "../../../global_values";
 
 export default function ReservationList(props: any){
     const elements: Array<any/*Do zmienienia*/> = props.elements;
     const current:boolean = props.current
     const list_elements: Array<JSX.Element> = [];
-    for(let single in elements){
+    if(elements===undefined){
+        return <></>
+    }
+    console.log(elements,"sdsa");
+    for(let single of elements){
+        console.log(single);
+        const places = [];
+        fetch(URLPath.routesId+"/"+single.railRouteId)
+        .then(res => res.json())
+        .then(data => {console.log(data,"das")});
+        for(let s of single.seats){
+            console.log(s,"kk")
+            places.push(<p>{s.seatId}</p>)
+        }
+
         list_elements.push(
         <>
             <Container className={styles.single_container}>
@@ -28,9 +43,7 @@ export default function ReservationList(props: any){
                     </Container>
                     <Container className={styles.places}>
                         <h5>Lista miejsc</h5>
-                        <p>12</p>
-                        <p>69</p>
-                        <p>420</p>
+                        {places}
                     </Container>
                     <Container>
                         <h5>Cena</h5>

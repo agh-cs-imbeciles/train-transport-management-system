@@ -61,7 +61,7 @@ export default function SearchPanel(){
         }
         const connections = await response.json();
         const conList:Array<JSX.Element> = [];
-        console.log(connections);
+        console.log(connections,"com");
         for(let c of connections){
             console.log(c);
             console.log(secondPlace);
