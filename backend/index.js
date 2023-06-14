@@ -9,7 +9,7 @@ import railStopsRouter from './routes/stops.js';
 import placesRouter from './routes/places.js';
 import trainRouter from './routes/trains.js';
 import reservationRouter from './routes/reservation.js';
-import { connect } from './config/database.js';
+import { connect } from './database/connection.js';
 const app = express();
 
 // Initializing dotenv
