@@ -640,7 +640,7 @@ Source code
 `string :id` - 24-character id of stop
 
 #### Get all rail routes by departure or arrival date and stop IDs
-- URL: `/rail/stops/all`,
+- URL: `/rail/routes/query`,
 - Method: `GET`,
 - Required body:  
     `| string departureDate` - string date format of minimum departure date (_one of them required_)  

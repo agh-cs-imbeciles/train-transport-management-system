@@ -358,81 +358,89 @@ Defines all currently on- or furthergoing rail routes.
 
     ##### Example of the extended `RailRouteSchema`:
     ```json
-    {
-        "_id": "6487e6faecffa599c1d815ce",
-        "trainId": "6485f91a69d92892eb4b0965",
-        "ticketsCost": {
-            "firstClass": 400,
-            "standard": 20
-        },
-        "departure": {
-            "stopId": "6485e52712372c03b8747898",
-            "date": "2023-06-17T08:30:00.000Z",
-        "stop": [
-            {
-                "_id": "6485e52712372c03b8747898",
-                "name": "Zakopane",
-                "place": {
-                    "_id": "6485063716691550652486e6",
-                    "name": "Zakopane"
-                }
-            }
-        ]
-        },
-        "arrival": {
-            "stopId": "6485e34012372c03b874786e",
-            "date": "2023-06-17T10:04:00.000Z",
-            "stop": [
-                {
-                    "_id": "6485e34012372c03b874786e",
-                    "name": "Kraków Główny",
-                    "place": {
-                        "_id": "648503a7221f629a17f924b8",
-                        "name": "Kraków"
+    [
+        {
+            "_id": "6487e6faecffa599c1d815ce",
+            "trainId": "6485f91a69d92892eb4b0965",
+            "ticketsCost": {
+                "firstClass": 400,
+                "standard": 20
+            },
+            "departure": {
+                "stopId": "6485e52712372c03b8747898",
+                "date": "2023-06-17T08:30:00.000Z",
+                "stop": [
+                    {
+                        "_id": "6485e52712372c03b8747898",
+                        "name": "Zakopane",
+                        "place": {
+                            "_id": "6485063716691550652486e6",
+                            "name": "Zakopane",
+                            "province": "małopolskie"
+                        }
                     }
-                }
-            ]
-        },
-        "stops": {
-        "stop": [
-            {
-                "_id": "6485e37512372c03b8747876",
-                "name": "Kraków Łagiewniki",
-                "place": {
-                    "_id": "648503a7221f629a17f924b8",
-                    "name": "Kraków"
-                }
+                ]
             },
-            {
-                "_id": "6485e41012372c03b8747882",
-                "name": "Radziszów",
-                "place": {
-                    "_id": "648504db16691550652486ae",
-                    "name": "Radziszów"
-                }
+            "arrival": {
+                "stopId": "6485e34012372c03b874786e",
+                "date": "2023-06-17T10:04:00.000Z",
+                "stop": [
+                    {
+                        "_id": "6485e34012372c03b874786e",
+                        "name": "Kraków Główny",
+                        "place": {
+                            "_id": "648503a7221f629a17f924b8",
+                            "name": "Kraków",
+                            "province": "małopolskie"
+                        }
+                    }
+                ]
             },
-            {
-                "_id": "6485e4d112372c03b874788e",
-                "name": "Skawa Środkowa",
-                "place": {
-                    "_id": "6485058816691550652486ce",
-                    "name": "Skawa"
-                }
+            "stops": {
+                "stop": [
+                    {
+                        "_id": "6485e37512372c03b8747876",
+                        "name": "Kraków Łagiewniki",
+                        "place": {
+                            "_id": "648503a7221f629a17f924b8",
+                            "name": "Kraków",
+                            "province": "małopolskie"
+                        }
+                    },
+                    {
+                        "_id": "6485e41012372c03b8747882",
+                        "name": "Radziszów",
+                        "place": {
+                            "_id": "648504db16691550652486ae",
+                            "name": "Radziszów",
+                            "province": "małopolskie"
+                        }
+                    },
+                    {
+                        "_id": "6485e4d112372c03b874788e",
+                        "name": "Skawa Środkowa",
+                        "place": {
+                            "_id": "6485058816691550652486ce",
+                            "name": "Skawa",
+                            "province": "małopolskie"
+                        }
+                    },
+                    {
+                        "_id": "6485e51012372c03b8747894",
+                        "name": "Nowy Targ",
+                        "place": {
+                            "_id": "648505f316691550652486de",
+                            "name": "Nowy Targ",
+                            "province": "małopolskie"
+                        }
+                    }
+                ]
             },
-            {
-                "_id": "6485e51012372c03b8747894",
-                "name": "Nowy Targ",
-                "place": {
-                    "_id": "648505f316691550652486de",
-                    "name": "Nowy Targ"
-                }
-            }
-        ]
-        },
-        "createdAt": "2023-06-13T03:48:10.171Z",
-        "updatedAt": "2023-06-13T03:48:10.171Z"
-  }
-  ```
+            "createdAt": "2023-06-13T03:48:10.171Z",
+            "updatedAt": "2023-06-13T03:48:10.171Z"
+        }
+    ]
+    ```
 
 #### Reservations collection
 Defines all currently active reservations, grouped by `userId`.
