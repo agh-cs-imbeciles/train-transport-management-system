@@ -5,7 +5,7 @@ import styles from "./reservation_list.module.scss";
 import TrainIcon from '@mui/icons-material/Train';
 import { URLPath } from "../../../global_values";
 import { SingleBedRounded } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ReservationList(props: any){
     const [used,setUsed] = useState<boolean>(false);
@@ -14,9 +14,14 @@ export default function ReservationList(props: any){
     const [listElements,setListElements] = useState<Array<JSX.Element>>([]);
     const elements: Array<any/*Do zmienienia*/> = props.elements;
     const current:boolean = props.current
-   
- 
     const tmp:any = [];
+    useEffect(() => {
+        setInterval(() => {
+            console.log(end);
+        }, 1000);
+      }, []);
+      
+
     if(elements===undefined){
         return <></>
     }
@@ -30,6 +35,7 @@ export default function ReservationList(props: any){
             .then(res => res.json())
             .then(data => createList(data,single))
         }
+        
     }
 
     
@@ -81,7 +87,7 @@ export default function ReservationList(props: any){
                 </ListItem>
             </Container>
         </>)
-            setListElements(tmp);
+        setListElements(tmp);
         // console.log(tmp,"dasd")
     }
 

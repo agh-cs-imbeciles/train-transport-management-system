@@ -12,8 +12,11 @@ import { useEffect, useState } from "react";
 export default function ReservationPanel(props: any){
     const location = useLocation();
     const params = useParams();
-    const [dataFirst,setDataFirst] = useState();
-    const [trainFValues,setTrainFValues] = useState();
+    const [placesElements,SetPlacesElements] = useState([]);
+    const [selected,SetSelected] = useState([]);
+    var dataFirst:any;//,setDataFirst] = useState();
+    var trainFValues:any;//,setTrainFValues] = useState();
+
     const trainData = props.trainData;
     const placesPositions: Array<JSX.Element> = [];
     if(localStorage.getItem("login_id")==null){
@@ -24,26 +27,47 @@ export default function ReservationPanel(props: any){
         fetch(URLPath.routesId+"/"+params.id)
           .then(res => res.json())
           .then(data => {
+            dataFirst=data;
             console.log(data);
-            setDataFirst(data);
+            // setDataFirst(data);
             return fetch(URLPath.trains+"/"+data.trainId);
         })
         .then(res => res.json())
-        .then(data =>{setTrainFValues(data);console.log(trainFValues,"ads")})
+        .then(data =>{
+            trainFValues = data;
+            // setTrainFValues(data);console.log(trainFValues,"ads");
+            // createPlaces();
+            console.log(placesPositions);
+            createPlaces()
+        })
       }, []);
-
-    for(let i=0; i<10;i++){
-        placesPositions.push(
-            <Container className={styles.position}>
-                <Container>
-                    <h5>Miejsce 23</h5>
-                    <p>21,37zł</p>
+    function createPlaces(){
+        console.log(trainFValues.seats,"seats")
+        for(let [k,s] of Object.entries(trainFValues.seats)){
+            console.log(s);
+            var price;
+            if('standard' in s.types){
+                price = dataFirst.ticketsCost.standard
+            }
+            else{
+                price = dataFirst.ticketsCost.firstClass
+            }
+            placesPositions.push(
+                <Container className={styles.position}>
+                    <Container>
+                        <h5>Miejsce {s.seatId}</h5>
+                        <p>{price}zł</p>
+                    </Container>
+                    <Button value={s.seatId} onClick={add} className={styles.icon_button}>
+                        <AddIcon className={styles.icon}/>
+                    </Button>
                 </Container>
-                <Button className={styles.icon_button}>
-                    <AddIcon className={styles.icon}/>
-                </Button>
-            </Container>
-        )
+            )
+        }
+        SetPlacesElements(placesPositions);
+    }
+    function add(event:any){
+        // placesElements..event.target.parent.
     }
    
     return(
@@ -65,18 +89,18 @@ export default function ReservationPanel(props: any){
                 <Container className={styles.list_block}>
                     <h5>Wybierz</h5>
                     <Container className={styles.list}>
-                        {placesPositions}
+                        {placesElements}
                     </Container>
                 </Container>
                 <Container className={styles.list_block}>
                     <h5>Wybrane</h5>
                     <Container className={styles.list}>
-                        {placesPositions}
+                        {/* {placesPositions} */}
                     </Container>
                 </Container>
                 <Container className={styles.price_button}>
-                    <h5>Cena sumaryczna</h5>
-                    <p>420,69zł</p>
+                    {/* <h5>Cena sumaryczna</h5>
+                    <p>420,69zł</p> */}
                     <Button>
                         Zarezerwuj
                     </Button>
