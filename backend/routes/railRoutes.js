@@ -16,7 +16,7 @@ router.use((req, res, next) => {
 
 router.put('/', asyncHandler(insertRailRoute));
 router.get('/id/:id', asyncHandler(getRailRouteById));
-router.get('/query', asyncHandler(getRailRouteQuery));
+router.post('/query', asyncHandler(getRailRouteQuery));
 // router.get('/departure/:id', asyncHandler(getRailRouteByDeparture));
 // router.get('/arrival/:id', asyncHandler(getRailRouteByArrival));
 

@@ -656,7 +656,7 @@ Source code
 
 #### Get all rail routes by departure or arrival date and stop IDs
 - URL: `/rail/routes/query`,
-- Method: `GET`,
+- Method: `POST`,
 - Required body:  
     `| string departureDate` - string date format of minimum departure date (_one of them required_)  
     `| string arrivalDate` - string date format of minimum arrival date (_one of them required_)  
@@ -751,9 +751,3 @@ Allows user to find new connections. User is able to filter connections by arriv
 #### ReservationPanel
 Allows user to choose how many places he would like to book. Displays additional data about connection.
 ![Screenshot](https://github.com/agh-cs-imbeciles/train-transport-management-system/assets/114953716/14132752-052b-42c1-bcd9-8ce64705777d)
-
-
-
-
-
-
