@@ -1,3 +1,4 @@
+import * as mongoose from 'mongoose';
 import chalk from 'chalk';
 import Reservation from '../models/reservation.js';
 
@@ -38,16 +39,37 @@ const getReservationById = async (req, res) => {
         const reservation = await Reservation.findById(reservationId);
 
         if (!reservation) {
-            throw new Error('Reservation not found');
+            throw new Error(`Reservation of ID ${reservationId} not found`);
         }
 
-        console.log(chalk.cyan.bold('[Get Reservation by ID]') + ` Reservation found: ${reservation.name}`);
+        console.log(chalk.cyan.bold('[Get Reservation by user ID]') + ` Reservation found: ${reservation._id}`);
   
         res.json(reservation);
-      } catch (error) {
+    } catch (error) {
         console.log(chalk.red.bold('[Get Reservation by ID] Error:'), error);
         res.status(400).json({ error: error.message });
-      }
+    }
 };
 
-export { createReservation, getReservationById };
+const getReservationByUserId = async (req, res) => {
+    try {
+        const userId = new mongoose.Types.ObjectId(req.params.id);
+
+        // Find the reservation by user ID
+        const reservation = await Reservation.findOne({ userId });
+
+        if (!reservation) {
+            throw new Error(`Reservation of user ID ${userId} not found`);
+        }
+
+        console.log(chalk.cyan.bold('[Get Reservation by ID]') + ` Reservation found: ${reservation._id}`);
+
+        res.json(reservation);
+    }
+    catch (error) {
+        console.log(chalk.red.bold('[Get Reservation by ID] Error:'), error);
+        res.status(400).json({ error: error.message });
+    }
+};
+
+export { createReservation, getReservationById, getReservationByUserId };
